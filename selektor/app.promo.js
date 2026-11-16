@@ -10,7 +10,7 @@ const CONFIGS = D.rows.map(r => ({
 }));
 
 
-/* ---------- Linn Winter Sales Incentive (promo edition) ----------
+/* ---------- Linn Summer Sales Incentive (promo edition) ----------
    Customer pays for one DAC level lower and receives this build: one DAC
    upgrade per Selekt DSM. Saving = difference between full Selekt DSM
    bundle prices (not individual cartridges). Stereo Organik to Dual Mono
@@ -58,8 +58,8 @@ function promoOrderLine(p,cfg){
   if(!p)return '';
   const slot=p.mono?'Slots 1 + 2':`Slot ${p.slot+1}`;
   return p.mono
-    ? `Order as ${cfg.chassis} with Line Out + Organik (stereo) DAC. Upgraded to Dual Mono Organik through the Winter Incentive; the customer pays the difference for 2 × Mono Line Out cartridges in place of the stereo Line Out.`
-    : `Order as ${cfg.chassis} with ${DAC_SHORT[p.from]} in ${slot}. Upgraded to ${DAC_SHORT[p.to]} through the Winter Incentive.`;
+    ? `Order as ${cfg.chassis} with Line Out + Organik (stereo) DAC. Upgraded to Dual Mono Organik through the Summer Incentive; the customer pays the difference for 2 × Mono Line Out cartridges in place of the stereo Line Out.`
+    : `Order as ${cfg.chassis} with ${DAC_SHORT[p.from]} in ${slot}. Upgraded to ${DAC_SHORT[p.to]} through the Summer Incentive.`;
 }
 
 /* ---------- currency ---------- */
@@ -592,7 +592,7 @@ function renderSummary(){
   const p=promoFor(cfg);
   if(cfg&&p){
     $('amount').innerHTML=`<span class="was">Was <s>${money(priceOf(cfg))}</s></span><span class="is">${money(p.pay[state.currency])}</span>`;
-    $('priceNote').innerHTML=`<span class="save">Customer saves ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Winter Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`;
+    $('priceNote').innerHTML=`<span class="save">Customer saves ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Summer Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`;
   }else if(cfg){
     $('amount').textContent=money(priceOf(cfg));
     $('priceNote').innerHTML=`<span class="pn">${esc(retailNote())}</span>${DEALER?`<span class="dlr-px">Dealer: <b>${dmoney(dealerOf(priceOf(cfg)))}</b> ${dTag()}</span>`:''}<span class="ord nb">${esc(promoReason(cfg))}</span>`;
@@ -691,14 +691,14 @@ function buildPrintDoc(){
   <div class="pd-hero">
     <div><h2>${esc(state.chassis)} — ${esc(state.colour)}</h2>
       <div class="sub">${esc(specs()[1][1])} · ${fitted().length} of 3 cartridge slots fitted${state.hdmi?' · HDMI board':''}${state.surround?' · Surround board':''}</div></div>
-    <div class="pd-price">${pp?`<div class="w">Was <s>${money(priceOf(cfg))}</s></div><div class="v">${money(pp.pay[state.currency])}</div><div class="b">Winter Incentive · saves ${money(pp.save[state.currency])}</div>`:`<div class="v">${money(priceOf(cfg))}</div><div class="b">${esc(retailNote().replace(', incl. GST',' · incl. GST'))}</div>`}</div>
+    <div class="pd-price">${pp?`<div class="w">Was <s>${money(priceOf(cfg))}</s></div><div class="v">${money(pp.pay[state.currency])}</div><div class="b">Summer Incentive · saves ${money(pp.save[state.currency])}</div>`:`<div class="v">${money(priceOf(cfg))}</div><div class="b">${esc(retailNote().replace(', incl. GST',' · incl. GST'))}</div>`}</div>
   </div>
   <section><h3>Configuration</h3>
     <table><thead><tr><th>Component</th><th>SKU</th></tr></thead><tbody>
     ${lines.map(l=>`<tr><td>${esc(l.name)}</td><td>${esc(l.sku)}</td></tr>`).join('')}
     </tbody><tfoot>
       <tr><td>Configured bundle price (${state.currency} RRP, incl. GST)</td><td class="num">${pp?`<s>${money(priceOf(cfg))}</s>`:money(priceOf(cfg))}</td></tr>
-      ${pp?`<tr><td>Linn Winter Incentive price (${PROMO.start} to ${PROMO.end})<br><small>${esc(promoOrderLine(pp,cfg))}</small></td><td class="num">${money(pp.pay[state.currency])}</td></tr>`:''}
+      ${pp?`<tr><td>Linn Summer Incentive price (${PROMO.start} to ${PROMO.end})<br><small>${esc(promoOrderLine(pp,cfg))}</small></td><td class="num">${money(pp.pay[state.currency])}</td></tr>`:''}
     </tfoot></table>
   </section>
   <section><h3>Specification</h3>
@@ -711,7 +711,7 @@ function buildPrintDoc(){
     <p class="pd-note pd-terms">${esc(state.terms).replace(/\n/g,'<br>')}</p></section>`:''}
   <div class="pd-sign"><div>Dealer signature / date</div><div>Customer signature / date</div></div>
   <div class="pd-foot">
-    ${pp?`Winter Incentive pricing applies to new customer orders placed ${PROMO.start} to ${PROMO.end}, one DAC upgrade per Selekt DSM, not demo purchases.${pp.mono?' The customer pays the difference between 2 × Mono Line Out cartridges and the stereo Line Out cartridge.':''} `:''}Prices are ${state.currency==='NZD'?'New Zealand':'Australian'} recommended retail in ${state.currency} including GST and are subject to change. This document is a configuration summary, not a tax invoice.
+    ${pp?`Summer Incentive pricing applies to new customer orders placed ${PROMO.start} to ${PROMO.end}, one DAC upgrade per Selekt DSM, not demo purchases.${pp.mono?' The customer pays the difference between 2 × Mono Line Out cartridges and the stereo Line Out cartridge.':''} `:''}Prices are ${state.currency==='NZD'?'New Zealand':'Australian'} recommended retail in ${state.currency} including GST and are subject to change. This document is a configuration summary, not a tax invoice.
     Specifications sourced from Linn technical documentation: docs.linn.co.uk/wiki/index.php/Technical_Specification:Selekt_DSM_Classic/1 ·
     docs.linn.co.uk/wiki/index.php/Technical_Specification:Selekt_DSM_Edition ·
     docs.linn.co.uk/wiki/index.php/Selekt_DSM_/0_Classic_Hub ·
@@ -797,8 +797,8 @@ function renderCurrency(){
   document.documentElement.setAttribute('data-currency',state.currency);
   const h=$('heroNote');
   if(h)h.textContent=state.currency==='NZD'
-    ? 'Every valid Selekt DSM build with New Zealand retail pricing, shown as was and is under the Linn Winter Incentive (16 November 2026 to 5 January 2027).'
-    : 'Every valid Selekt DSM build with Australian retail pricing, shown as was and is under the Linn Winter Incentive (16 November 2026 to 5 January 2027).';
+    ? 'Every valid Selekt DSM build with New Zealand retail pricing, shown as was and is under the Linn Summer Incentive (16 November 2026 to 5 January 2027).'
+    : 'Every valid Selekt DSM build with Australian retail pricing, shown as was and is under the Linn Summer Incentive (16 November 2026 to 5 January 2027).';
   const e=$('heroEyebrow');
   if(e)e.textContent=state.currency==='NZD'
     ? 'Linn Selekt DSM \u00b7 New Zealand dealer configurator'

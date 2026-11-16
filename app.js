@@ -1,4 +1,4 @@
-/* Linn Selekt DSM Winter Incentive — Advance Audio / Advance One dealer page */
+/* Linn Selekt DSM Summer Incentive — Advance Audio / Advance One dealer page */
 (function(){
 const $=id=>document.getElementById(id);
 const R=window.ROUTES.routes, MONO=window.ROUTES.monoPair, LO=window.ROUTES.lineOut;
@@ -62,12 +62,12 @@ let hub='Selekt Classic';
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{hub=b.dataset.hub;document.querySelectorAll('.tabs button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});renderSavings()});
 function renderSavings(){
   const hubName=hub==='Selekt Classic'?'Selekt DSM Classic':'Selekt DSM Edition';
-  $('svGrid').innerHTML=['Line Out','Power Out','Hybrid Power Out'].map(card=>{
+  $('svGrid').innerHTML=['Line Out','Power Out'].map(card=>{
     const r=route(hub,card);
     return `<div class="sv-card"><h3>${card==='Hybrid Power Out'?'Hybrid':card}</h3><div class="sub">${hubName} · ${CARD[card]}</div>${r.steps.map(s=>`
       <div class="sv-row"><div class="rt">${DACN[s.from]} &#8594; ${DACN[s.to]}${s.mono?'*':''}<small>${s.mono?'Customer pays the Mono Line Out difference':'Next DAC level, no extra cost'}</small></div>
       <div class="amt">${money(s.save[cur])}<small>Customer saves</small></div>
-      <div class="px">${s.mono?`Pays <b>${money(s.dsm[cur])}</b> + <b>${money(s.upg[cur])}</b> Mono Line Out difference`:`Pays <b>${money(s.pay[cur])}</b>`} · receives <s>${money(s.get[cur])}</s></div>
+      <div class="px">${s.mono?`Pays <b>${money(s.dsm[cur]+s.upg[cur])}</b> <span class="brk">(${money(s.dsm[cur])} + ${money(s.upg[cur])} Mono Line Out difference)</span>`:`Pays <b>${money(s.pay[cur])}</b>`} · receives <s>${money(s.get[cur])}</s></div>
       <div class="px dl">Dealer: cost price ${cur==='NZD'?'ex':'inc'} <b>${money2(s.dpay[cur])}</b> · receive <s>${money2(s.dget[cur])}</s></div></div>`).join('')}</div>`}).join('');
   $('svFine').innerHTML=`Prices are ${MK[cur].retail}, from the current Linn Selekt DSM retail list used in the Advance Audio Selekt DSM configurator. Savings are the difference between the full Selekt DSM bundle the customer pays for and the one they receive, so they can differ from individual module price differences. Dealer prices are from the October 2026 Linn dealer list (${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}). *Dual mono: the customer orders a stereo Organik Selekt DSM with a stereo Line Out cartridge and receives dual mono Organik (2 × Organik Mono DAC). The Mono Line Out cartridges are not part of the upgrade, so the customer pays the difference between 2 × Mono Line Out cartridges (${money(MONO[cur])} RRP) and the stereo Line Out cartridge (${money(LO[cur])} RRP): ${money(MONO[cur]-LO[cur])}.`;
 }
@@ -117,13 +117,13 @@ function terms(){
     ['The upgrade','The customer receives the next level of DAC at no extra cost: Standard to Katalyst, Katalyst to Organik, or stereo Organik to dual mono Organik.'],
     ['One per Selekt DSM','Limited to one DAC upgrade per Selekt DSM, even if the system has multiple DACs.'],
     ['Dual mono','For stereo Organik to dual mono Organik, the customer orders a stereo Organik Selekt DSM with a stereo Line Out cartridge and receives 2 × Organik Mono DAC. The customer pays the difference between 2 × Mono Line Out cartridges and the stereo Line Out cartridge at full retail.'],
-    ['Ordering','Tell Orders you are using the Winter Incentive and clearly state what the customer is paying for and what they should receive. It will not be applied automatically.'],
+    ['Ordering','Tell Orders you are using the Summer Incentive and clearly state what the customer is paying for and what they should receive. It will not be applied automatically.'],
     ['Dealer pricing','Dealer prices are from the October 2026 Linn dealer list ('+(cur==='NZD'?'NZD, excluding GST':'AUD, including GST')+'). You are invoiced for the build the customer pays for and receive the upgraded build.'],
     ['Customer savings','Savings shown are the difference between full Selekt DSM retail bundle prices ('+(cur==='NZD'?'NZD':'AUD')+', including GST), not individual module prices.'],
-    ['Conversion credit',`${c}200 ${g} credit for every customer converted to a Selekt DSM order placed through the Winter Incentive during the promotion period.`],
+    ['Conversion credit',`${c}200 ${g} credit for every customer converted to a Selekt DSM order placed through the Summer Incentive during the promotion period.`],
     ['Marketing credit',`${c}100 ${g} credit for each EDM sent (up to 2), each social media post published (up to 2), and for listing the promotion on your website (1), during the promotion period. Maximum ${c}500 ${g} marketing credit per dealer. Share a copy, screenshot or link with your rep to confirm each one.`],
     ['Floor-stock bonus','Commit to floor stock in any Selekt DSM, cartridge or DAC during the promotion period and receive an additional 5% floor-stock allowance on top of your standard allowance.'],
-    ['Using your credit',`Credit is applied to your ${co} account for use towards new Linn floor stock orders. It has no cash value.`],
+    ['Using your credit',`Credit is applied to your ${co} account for use towards new Linn floor stock orders. It has no cash value. Credit will be calculated after the promotion finishes. You will be notified how much credit you have earnt and your rep will work out an order with you.`],
     ['Your plan','Numbers in your plan are your own estimates. Credit is based on the orders and marketing activity you actually deliver.']
   ];
 }
@@ -169,7 +169,7 @@ function buildPdf(d){
     const [lw,lh]=sz(LOGO,first?7:6);doc.addImage(LOGO,'PNG',M,first?11:8,lw,lh);
     const [nw,nh]=sz(A.linn,first?15:9);doc.addImage(A.linn,'PNG',W-M-nw,first?8:6.5,nw,nh);
     if(first){
-      f('MSB',7.5);col(CS);doc.setCharSpace(.9);doc.text('LINN SELEKT DSM · WINTER INCENTIVE · 16 NOV 2026 – 5 JAN 2027',M,34);doc.setCharSpace(0);
+      f('MSB',7.5);col(CS);doc.setCharSpace(.9);doc.text('LINN SELEKT DSM · SUMMER INCENTIVE · 16 NOV 2026 – 5 JAN 2027',M,34);doc.setCharSpace(0);
       f('IS',26);col([235,236,237]);doc.text('Dealer plan',M,47);
       const tw=doc.getTextWidth('Dealer plan')+3;f('ISI',26);col(CS);doc.text('& credit summary',M+tw,47);
       y=68;
@@ -210,7 +210,7 @@ function buildPdf(d){
   fill(INK);doc.roundedRect(M,y,W-2*M,52,2,2,'F');
   draw([60,62,66]);doc.setLineWidth(.2);doc.line(M+8,y+14,W-M-8,y+14);f('MSB',6.5);col(CS);doc.setCharSpace(1);doc.text('POTENTIAL CREDIT TOWARDS NEW LINN FLOOR STOCK',M+8,y+10);doc.setCharSpace(0);
   f('IS',34);col(CS);doc.text(money(p.tot),M+8,y+30);
-  f('MR',7.6);col([201,203,206]);doc.text(doc.splitTextToSize(`${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}. Based on your plan. Credit is earned on converted Winter Incentive orders and confirmed marketing activity.`,72),M+8,y+37);
+  f('MR',7.6);col([201,203,206]);doc.text(doc.splitTextToSize(`${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}. Based on your plan. Credit is earned on converted Summer Incentive orders and confirmed marketing activity.`,72),M+8,y+37);
   const mx=M+96;[['Conversion credit',money(p.conv),`${p.sell} × ${money(CREDIT.conv)}`],['Marketing credit',money(p.mkt),`${p.edm+p.social+(web?1:0)} × ${money(CREDIT.mkt)}`]].forEach((r,i)=>{const yy=y+21+i*15;
     f('MSB',6.3);col([163,166,170]);doc.setCharSpace(.6);doc.text(r[0].toUpperCase(),mx,yy);doc.setCharSpace(0);
     f('IS',18);col([235,236,237]);doc.text(r[1],W-M-8,yy+2,{align:'right'});f('MR',7.4);col([163,166,170]);doc.text(r[2],mx,yy+5)});
@@ -227,7 +227,7 @@ function buildPdf(d){
     f('MSB',7.6);col(INK);doc.text(`${String(i+1).padStart(2,'0')}  ${tm[0]}`,M,y+3);
     f('MR',7.6);col(BODY);doc.text(lines,M+44,y+3,{lineHeightFactor:1.4});y+=h});
   y+=3;need(16);fill(SAND);doc.roundedRect(M,y,W-2*M,13,1.5,1.5,'F');f('MR',7.8);col(BODY);
-  doc.text(doc.splitTextToSize(`Next step: send this plan to your ${m.co} rep or ${m.mail}. When you place a Winter Incentive order, state what the customer is paying for and what they should receive.`,W-2*M-10),M+5,y+5.2,{lineHeightFactor:1.4});
+  doc.text(doc.splitTextToSize(`Next step: send this plan to your ${m.co} rep or ${m.mail}. When you place a Summer Incentive order, state what the customer is paying for and what they should receive.`,W-2*M-10),M+5,y+5.2,{lineHeightFactor:1.4});
   footer();
   return doc;
 }
@@ -242,7 +242,7 @@ $('cform').addEventListener('submit',e=>{
   if(!d.agree){msg.textContent='Please confirm you agree to the promotion terms.';return}
   if(!window.jspdf||!window.PDFA){msg.textContent='The PDF tools are still loading. Please try again in a moment.';return}
   msg.textContent='';
-  try{const doc=buildPdf(d);lastPdf={blob:doc.output('blob'),name:`Linn-Winter-Incentive-Plan-${slug(d.dealer)||'Dealer'}-${ref}.pdf`,d,p:plan()};save();
+  try{const doc=buildPdf(d);lastPdf={blob:doc.output('blob'),name:`Linn-Summer-Incentive-Plan-${slug(d.dealer)||'Dealer'}-${ref}.pdf`,d,p:plan()};save();
     $('doneTxt').textContent=`${lastPdf.name} has downloaded. Email it to yourself, then forward it to your ${MK[cur].co} rep.`;
     $('done').classList.add('show')}
   catch(err){console.error(err);msg.textContent='Something went wrong generating the PDF. Please try again.'}
@@ -251,8 +251,8 @@ $('dlBtn').onclick=()=>lastPdf&&save();
 $('mailBtn').onclick=async()=>{
   if(!lastPdf)return;const {d,p,name}=lastPdf, m=MK[cur], g=m.credGst;
   const file=new File([lastPdf.blob],name,{type:'application/pdf'});
-  const subject=`Linn Winter Incentive plan – ${d.dealer} (${ref})`;
-  const body=`Hi ${d.name},\n\nYour Linn Selekt DSM Winter Incentive plan is attached.\n\nDealership: ${d.dealer}\nReference: ${ref}\nDate: ${dateTxt}\n\nSelekt DSM systems you think you can sell: ${p.sell}\nEDMs: ${p.edm} · Social posts: ${p.social} · Website listing: ${web===null?'Not answered':(web?'Yes':'No')}\n\nPotential credit towards new Linn floor stock: ${money(p.tot)} ${g}\n\nNext step: forward this email and PDF to your ${m.co} rep or ${m.mail}.`;
+  const subject=`Linn Summer Incentive plan – ${d.dealer} (${ref})`;
+  const body=`Hi ${d.name},\n\nYour Linn Selekt DSM Summer Incentive plan is attached.\n\nDealership: ${d.dealer}\nReference: ${ref}\nDate: ${dateTxt}\n\nSelekt DSM systems you think you can sell: ${p.sell}\nEDMs: ${p.edm} · Social posts: ${p.social} · Website listing: ${web===null?'Not answered':(web?'Yes':'No')}\n\nPotential credit towards new Linn floor stock: ${money(p.tot)} ${g}\n\nNext step: forward this email and PDF to your ${m.co} rep or ${m.mail}.`;
   if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:subject,text:body});return}catch(e){if(e.name==='AbortError')return}}
   location.href=`mailto:${encodeURIComponent(d.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body+`\n\nPlease attach: ${name} (saved to your Downloads folder).`)}`;
 };
