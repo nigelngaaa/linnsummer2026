@@ -1,0 +1,17 @@
+.promo-tag{display:inline-block;vertical-align:middle;margin-left:.5rem;font-family:var(--body,inherit);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:#d16228;color:#fff;border-radius:999px;padding:4px 10px;position:relative;top:-3px}
+.amount{display:flex;flex-direction:column;gap:6px}
+.amount .was{font-family:var(--body,inherit);font-size:13px;letter-spacing:.02em;color:#b3a688}
+.amount .was s{text-decoration-thickness:1.5px}
+.amount .is{color:#fff}
+.price-note{display:flex;flex-direction:column;gap:6px}
+.price-note .save{display:inline-block;align-self:flex-start;background:#d16228;color:#fff;font-weight:600;font-size:12px;border-radius:999px;padding:4px 10px;letter-spacing:.02em}
+.price-note .ord{color:#e7ddc8;line-height:1.5;font-size:12px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px;margin-top:2px}
+.price-note .ord.nb{color:#b3a688}
+.pd-price .w{font-size:11px;color:#777}
+/* inside the promo page: the parent supplies brand bar, currency and hero */
+html.inpromo .topbar,html.inpromo .hero,html.inpromo .sitefoot{display:none}
+html.inpromo body{background:transparent}
+html.inpromo .shell{padding-top:0;padding-bottom:0}
+
+html.inpromo,html.inpromo body{min-height:0!important;height:auto}
+.price-note .dlr-px{color:#e08a5a;font-size:12.5px;font-weight:500}.price-note .dlr-px b{color:#f3a77a;font-weight:700}.price-note .dlr-px s{opacity:.8}
