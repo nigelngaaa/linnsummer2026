@@ -17,7 +17,7 @@ const CONFIGS = D.rows.map(r => ({
    Organik: the customer pays the stereo Organik DSM (with stereo Line Out)
    plus the RRP difference to 2 x Mono Line Out cartridges. */
 const PROMO={start:'16 November 2026',end:'5 January 2027',monoPair:{AUD:3695,NZD:3995},lineOut:{AUD:1100,NZD:1295}};
-const DEALER=window.__DEALER||null; // only supplied by the password-protected promo page
+const DEALER=window.__DEALER||null; // only supplied by the promo page once dealer pricing is unlocked
 const dmoney=v=>{const r=Math.round(v*100)/100;return (state.currency==='NZD'?'NZ$':'$')+r.toLocaleString('en-AU',{minimumFractionDigits:r%1?2:0,maximumFractionDigits:2})};
 const dealerOf=v=>DEALER?Math.round(v*DEALER[state.currency]*100+1e-6)/100:null;
 const dTag=()=>state.currency==='NZD'?'ex GST':'inc GST';
@@ -339,7 +339,7 @@ function renderColour(){
     <button class="swatch ${state.colour===c?'selected':''}" data-colour="${c}">
       <img class="chip-shot" src="img/${state.chassis==='Selekt Edition Hub'?'edition':'classic'}-${c.toLowerCase()}-front.webp" alt="${c} finish">
       <div><strong>${c}</strong><span>${esc(state.chassis||'Selekt DSM')} in ${c.toLowerCase()} finish.</span></div></button>`).join('')}</div>
-    ${EMBED?'':`<div class="rules dealer-box"><div class="eyebrow">Dealer details for the spec sheet</div>
+    ${EMBED||!DEALER?'':`<div class="rules dealer-box"><div class="eyebrow">Dealer details for the spec sheet</div>
       <div class="dealer-grid">
         <div class="field"><label for="dealer">Dealer / store</label>
           <input class="dlr" id="dealer" value="${esc(state.dealer)}" placeholder="e.g. Advance Audio — Sydney"></div>
@@ -365,7 +365,7 @@ function renderColour(){
       </div>
     </div>`}`;
   $('stepBody').querySelectorAll('[data-colour]').forEach(b=>b.onclick=()=>{state.colour=b.dataset.colour;render()});
-  if(EMBED)return;
+  if(EMBED||!DEALER)return;
   $('dealer').oninput=e=>{state.dealer=e.target.value};
   $('customer').oninput=e=>{state.customer=e.target.value};
   $('terms').oninput=e=>{state.terms=e.target.value};
@@ -592,7 +592,7 @@ function renderSummary(){
   const p=promoFor(cfg);
   if(cfg&&p){
     $('amount').innerHTML=`<span class="was">Was <s>${money(priceOf(cfg))}</s></span><span class="is">${money(p.pay[state.currency])}</span>`;
-    $('priceNote').innerHTML=`<span class="save">Customer saves ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Summer Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`;
+    $('priceNote').innerHTML=`<span class="save">${DEALER?'Customer saves':'You save'} ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Summer Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}${DEALER?`<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`:''}`;
   }else if(cfg){
     $('amount').textContent=money(priceOf(cfg));
     $('priceNote').innerHTML=`<span class="pn">${esc(retailNote())}</span>${DEALER?`<span class="dlr-px">Dealer: <b>${dmoney(dealerOf(priceOf(cfg)))}</b> ${dTag()}</span>`:''}<span class="ord nb">${esc(promoReason(cfg))}</span>`;
@@ -801,8 +801,8 @@ function renderCurrency(){
     : 'Every valid Selekt DSM build with Australian retail pricing, shown as was and is under the Linn Summer Incentive (16 November 2026 to 5 January 2027).';
   const e=$('heroEyebrow');
   if(e)e.textContent=state.currency==='NZD'
-    ? 'Linn Selekt DSM \u00b7 New Zealand dealer configurator'
-    : 'Linn Selekt DSM \u00b7 Australian dealer configurator';
+    ? 'Linn Selekt DSM \u00b7 New Zealand '+(DEALER?'dealer configurator':'pricing')
+    : 'Linn Selekt DSM \u00b7 Australian '+(DEALER?'dealer configurator':'pricing');
   const c=$('curEyebrow');
   if(c)c.textContent=state.currency+' retail incl. GST';
   const n=$('curNote');

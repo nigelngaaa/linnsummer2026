@@ -3,81 +3,563 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Linn Selekt DSM Summer Incentive · Dealer access</title>
+<script>document.documentElement.classList.add('js')</script>
+<title>Linn Selekt DSM Summer Incentive · The next level is on us | Advance Audio</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/linn-black-mark.png">
 <style>
-@font-face{font-family:"Instrument Serif";src:url(fonts/is.woff2) format("woff2");font-style:normal;font-display:swap}
-@font-face{font-family:"Instrument Serif";src:url(fonts/isi.woff2) format("woff2");font-style:italic;font-display:swap}
-@font-face{font-family:"Manrope";src:url(fonts/mr.woff2) format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(fonts/is.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(fonts/isi.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Manrope";src:url(fonts/mr.woff2) format("woff2");font-weight:300 800;font-style:normal;font-display:swap}
+:root{
+  --ink:#121315; --ink-2:#1a1c1f; --ink-3:#24272b; --line:rgba(235,236,237,.12);
+  --paper:#f3efe8; --paper-2:#e9e3d8; --text:#ebeced; --muted:#a3a6aa; --muted-dark:#6b6760; --body:#4a4741;
+  --copper:#d16228; --copper-soft:#e08a5a; --copper-ink:#b4521f; --lline:rgba(18,19,21,.14);
+  --serif:"Instrument Serif","Iowan Old Style",Georgia,serif; --sans:"Manrope","Segoe UI",system-ui,sans-serif;
+  --pad:clamp(1.25rem,4.4vw,4.5rem);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{background:radial-gradient(110% 80% at 80% 20%,#1d2230 0%,#121315 60%);color:#ebeced;font-family:"Manrope","Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
-header{display:flex;align-items:center;gap:1rem;padding:1.4rem clamp(1.25rem,4vw,4.5rem)}
-header img{height:24px;width:auto}
-header .sep{width:1px;height:22px;background:rgba(235,236,237,.3)}
-main{flex:1;display:grid;place-items:center;padding:2rem 1.25rem 4rem}
-.card{width:min(440px,100%);text-align:center}
-.em{width:84px;height:84px;margin:0 auto 1.8rem}
-.eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:#e08a5a}
-h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(2.6rem,7vw,3.6rem);line-height:1;margin:1rem 0 1rem;letter-spacing:-.01em}
-h1 em{color:#e08a5a}
-p{color:#a3a6aa;line-height:1.65;font-size:.95rem;margin-bottom:1.8rem}
-form{display:flex;flex-direction:column;gap:.8rem;text-align:left}
-label{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:#a3a6aa}
-.row{display:flex;gap:.6rem}
-input{flex:1;min-width:0;background:#121315;border:1px solid rgba(235,236,237,.2);border-radius:999px;padding:.95rem 1.2rem;color:#ebeced;font:inherit;font-size:1rem}
-input:focus{outline:none;border-color:#e08a5a;box-shadow:0 0 0 3px rgba(209,98,40,.25)}
-input[aria-invalid="true"]{border-color:#e07a68}
-button{background:#d16228;color:#fff;border:0;border-radius:999px;padding:0 1.5rem;font:inherit;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;cursor:pointer;white-space:nowrap}
-button:hover{background:#b4521f}
-button:disabled{opacity:.6;cursor:wait}
-button:focus-visible{outline:2px solid #e08a5a;outline-offset:2px}
-.msg{min-height:1.4rem;font-size:.85rem;color:#f0b49a;text-align:center;margin-top:.4rem}
-footer{text-align:center;font-size:.72rem;color:#6b6e73;padding:1.4rem;letter-spacing:.04em}
-footer a{color:#a3a6aa}
+html,body{height:100%;background:var(--ink);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,select,input,textarea{font:inherit}
+.deck{height:100vh;height:100dvh;overflow-y:auto;scroll-behavior:smooth}
+.slide{position:relative;min-height:100vh;min-height:100dvh;display:flex;overflow:hidden}
+.eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:var(--copper-soft)}
+.paper .eyebrow{color:var(--copper-ink)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1}
+h2{font-size:clamp(2.4rem,4.8vw,4.6rem)}
+h3{font-size:clamp(1.45rem,1.9vw,1.9rem)}
+em{font-style:italic;color:var(--copper-soft)}
+.paper em{color:var(--copper)}
+p{line-height:1.7}
+.lead{font-size:clamp(1rem,1.15vw,1.12rem);color:var(--muted);max-width:40rem}
+.paper{background:var(--paper);color:var(--ink)}
+.paper .lead,.paper p{color:var(--body)}
+.sec{flex-direction:column;justify-content:center;padding:7rem var(--pad) 5rem;width:100%}
+.head2{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:clamp(1.8rem,5vh,3rem)}
+.head2 h2{margin-top:1rem}
+.cur{white-space:nowrap}
+
+/* bar */
+.bar{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem var(--pad);transition:color .4s,background .4s}
+.bar.solid{background:rgba(18,19,21,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.on-paper .bar.solid{background:rgba(243,239,232,.9)}
+.bar .logos{display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.bar .logos .sep{width:1px;height:26px;background:currentColor;opacity:.3}
+.bar .logo{height:22px;width:auto}
+.bar .linn{height:34px;width:auto}
+.bar .dark{display:none}
+body.on-paper .bar .light{display:none}
+body.on-paper .bar .dark{display:block}
+.bar nav{display:flex;gap:1.35rem;align-items:center;font-size:.68rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+.bar nav a{white-space:nowrap;text-decoration:none;opacity:.66;transition:opacity .2s}
+.bar nav a:hover,.bar nav a.active{opacity:1}
+body.on-paper .bar{color:var(--ink)}
+.seg{display:inline-flex;border:1px solid currentColor;border-radius:999px;padding:2px;opacity:.9}
+.seg button{background:none;border:0;color:inherit;font-size:.68rem;letter-spacing:.14em;font-weight:700;padding:.38rem .7rem;border-radius:999px;cursor:pointer}
+.seg button.on{background:var(--copper);color:#fff}
+.right{display:flex;align-items:center;gap:1.2rem}
+.curnote{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:#f3efe8;background:rgba(18,19,21,.78);padding:.45em .9em;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.curnote:empty{display:none}
+.progress{position:fixed;left:0;bottom:0;height:2px;background:var(--copper);z-index:21;width:0;transition:width .35s ease}
+.js .r{opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .in .r{opacity:1;transform:none}
+.in .r.d1{transition-delay:.1s}.in .r.d2{transition-delay:.2s}.in .r.d3{transition-delay:.3s}.in .r.d4{transition-delay:.4s}
+@media (prefers-reduced-motion:reduce){.js .r{opacity:1;transform:none;transition:none}.deck{scroll-behavior:auto}}
+
+/* cover */
+.cover{background:var(--ink)}
+.cover .visual{position:absolute;inset:0 0 0 38%}
+.cover .visual img{width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.cover .visual::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(18,19,21,.7) 28%,rgba(18,19,21,0) 65%),linear-gradient(0deg,rgba(18,19,21,.7),rgba(18,19,21,0) 40%)}
+.cover .copy{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad);padding-bottom:clamp(3rem,9vh,6rem);max-width:56rem}
+.cover h1{font-size:clamp(3.2rem,min(7.4vw,11vh),7.6rem);line-height:.98;margin:1.3rem 0 1.5rem}
+.meta{display:flex;flex-wrap:wrap;gap:1.4rem 2.6rem;margin-top:2.4rem;padding-top:1.4rem;border-top:1px solid var(--line);max-width:44rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.meta b{display:block;color:var(--text);font-weight:600;margin-bottom:.35rem;font-family:var(--serif);font-size:1.6rem;letter-spacing:0;text-transform:none}
+.scroll-cue{margin-top:2.4rem;display:inline-flex;align-items:center;gap:.7rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.scroll-cue span{width:34px;height:34px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center}
+
+/* offer */
+.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.rung{background:#fff;border:1px solid var(--lline);border-radius:6px;padding:1.6rem 1.5rem 1.4rem;display:flex;flex-direction:column}
+.rung .n{font-family:var(--serif);font-style:italic;color:var(--copper);font-size:1.3rem}
+.rung .buy{margin-top:1.1rem;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--muted-dark)}
+.rung .from{font-family:var(--serif);font-size:1.7rem;margin-top:.3rem}
+.rung .arrow{margin:.7rem 0;color:var(--copper);font-size:1.2rem}
+.rung .to{font-family:var(--serif);font-size:2.1rem;color:var(--ink)}
+.rung .to em{font-style:italic}
+.rung .foot{margin-top:auto;padding-top:1.1rem;border-top:1px solid var(--lline);font-size:.8rem;color:var(--body);line-height:1.55}
+.rung .foot b{color:var(--copper-ink)}
+.cond{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--lline)}
+.cond div{font-size:.86rem;line-height:1.55;color:var(--body)}
+.cond b{display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:.45rem}
+
+/* savings */
+.sv-top{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.tabs button{background:none;border:0;color:var(--muted);padding:.55rem 1.1rem;border-radius:999px;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer}
+.tabs button.on{background:var(--text);color:var(--ink)}
+.sv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;max-width:1040px}
+.sv-row .px .brk{color:var(--muted)}
+.sv-card{border:1px solid var(--line);border-radius:6px;background:var(--ink-2);padding:1.4rem 1.4rem 1.1rem}
+.sv-card h3{font-size:1.6rem;margin-bottom:.2rem}
+.sv-card .sub{font-size:.74rem;color:var(--muted);letter-spacing:.04em}
+.sv-row{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:1rem 0;border-top:1px solid var(--line);margin-top:1rem}
+.sv-row+.sv-row{margin-top:0}
+.sv-row .rt{font-size:.86rem;color:#d6d8db;line-height:1.45}
+.sv-row .rt small{display:block;color:var(--muted);font-size:.74rem;margin-top:.2rem}
+.sv-row .amt{text-align:right;font-family:var(--serif);font-size:1.9rem;color:var(--copper-soft);line-height:1}
+.sv-row .amt small{display:block;font-family:var(--sans);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.35rem}
+.sv-row .px{grid-column:1/-1;font-size:.74rem;color:var(--muted);display:flex;gap:.5rem;flex-wrap:wrap}
+.sv-row .px s{opacity:.8}
+.sv-row .px b{color:var(--text);font-weight:600}
+.sv-row .px.dl{margin-top:-.15rem;color:var(--copper-soft,#e08a5a)}
+.sv-row .px.dl b{color:var(--copper-soft,#e08a5a)}
+.sv-row .px.dl span{opacity:.75}
+.fine{font-size:.76rem;color:var(--muted);margin-top:1.3rem;line-height:1.6;max-width:62rem}
+.paper .fine{color:var(--muted-dark)}
+
+/* ordering */
+.ord-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.steps{list-style:none;border-top:1px solid var(--lline)}
+.steps li{display:grid;grid-template-columns:2.6rem 1fr;gap:.8rem;padding:1.1rem 0;border-bottom:1px solid var(--lline)}
+.steps .n{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--copper)}
+.steps b{display:block;font-size:.98rem;margin-bottom:.25rem}
+.steps p{font-size:.9rem;line-height:1.6}
+.example{background:var(--ink);color:var(--text);border-radius:6px;padding:1.8rem}
+.example .eyebrow{color:var(--copper-soft)}
+.example h3{margin:.9rem 0 1.2rem;font-size:1.7rem}
+.example dl{display:grid;grid-template-columns:auto 1fr;gap:.7rem 1.2rem;font-size:.9rem;border-top:1px solid var(--line);padding-top:1.1rem}
+.example dt{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding-top:.25rem;font-weight:700}
+.example dd{color:#e2e3e5;line-height:1.5}
+.example .mail{margin-top:1.4rem;font-size:.85rem;color:var(--muted);line-height:1.6;border-top:1px solid var(--line);padding-top:1rem}
+.example .mail a{color:var(--copper-soft)}
+
+/* targets */
+.split{display:grid;grid-template-columns:1fr 1fr;width:100%}
+.split .pic{position:relative;min-height:50vh}
+.split .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.split .txt{padding:7rem var(--pad) 5rem;display:flex;flex-direction:column;justify-content:center}
+.warm{list-style:none;margin-top:1.8rem;border-top:1px solid var(--line)}
+.warm li{display:grid;grid-template-columns:2.4rem 1fr;gap:.7rem;padding:1.05rem 0;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--muted);line-height:1.55}
+.warm li b{display:block;color:var(--text);font-weight:600;margin-bottom:.15rem}
+.warm .n{font-family:var(--serif);font-style:italic;color:var(--copper-soft);font-size:1.25rem}
+.quote{font-family:var(--serif);font-size:clamp(1.4rem,2vw,1.9rem);line-height:1.25;border-left:2px solid var(--copper);padding-left:1.3rem;margin-top:2rem;max-width:34rem}
+.paper .quote{color:var(--ink)}
+
+/* floor stock */
+.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.fs-pic{border-radius:6px;overflow:hidden;aspect-ratio:4/3}
+.fs-pic img{width:100%;height:100%;object-fit:cover}
+.bonus{display:flex;align-items:center;gap:1.4rem;margin:1.8rem 0;padding:1.4rem 1.6rem;background:var(--ink);color:var(--text);border-radius:6px}
+.bonus .big{font-family:var(--serif);font-size:clamp(3.6rem,6vw,5rem);line-height:.9;color:var(--copper-soft)}
+.bonus p{color:#d6d8db;font-size:.92rem;line-height:1.55}
+.bonus p b{color:#fff}
+.ticks{list-style:none;display:grid;gap:.75rem}
+.ticks li{position:relative;padding-left:1.7rem;font-size:.92rem;line-height:1.55;color:var(--body)}
+.ticks li::before{content:"";position:absolute;left:0;top:.5rem;width:.7rem;height:.7rem;border-radius:50%;border:2px solid var(--copper)}
+
+/* configurator */
+.cfg{flex-direction:column;padding:7rem var(--pad) 4rem;width:100%;background:#f6f1e7}
+.cfg .head2{margin-bottom:1.4rem}
+.cfg-frame{width:100%;border:0;display:block;min-height:900px;background:transparent}
+.cfg-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:1rem}
+.link-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;text-decoration:none;border:1px solid currentColor;border-radius:999px;padding:.6rem 1rem}
+
+/* plan */
+.plan{flex-direction:column;padding:7rem var(--pad) 5rem;width:100%}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pcard{border:1px solid var(--line);border-radius:6px;background:var(--ink-2);padding:1.8rem;display:flex;flex-direction:column}
+.pcard .eyebrow{margin-bottom:.8rem}
+.pcard h3{font-size:2rem;margin-bottom:.8rem}
+.pcard>p{font-size:.9rem;color:var(--muted)}
+.offer-chip{display:flex;gap:1rem;align-items:center;margin:1.2rem 0 1.4rem;padding:1rem 1.1rem;border-radius:6px;background:rgba(209,98,40,.12);border:1px solid rgba(224,138,90,.35)}
+.offer-chip .v{font-family:var(--serif);font-size:2.4rem;color:var(--copper-soft);line-height:1;white-space:nowrap}
+.offer-chip p{font-size:.84rem;line-height:1.5;color:#e2e3e5}
+.q{display:grid;grid-template-columns:1fr 6.5rem;gap:1rem;align-items:center;padding:.95rem 0;border-top:1px solid var(--line)}
+.q label{font-size:.9rem;line-height:1.45;color:#e2e3e5}
+.q label small{display:block;font-size:.74rem;color:var(--muted);margin-top:.2rem}
+.q input[type=number]{width:100%;background:var(--ink);border:1px solid rgba(235,236,237,.22);border-radius:6px;color:var(--text);padding:.65rem .7rem;font-size:1rem;text-align:right}
+.q input:focus,.fld input:focus,.fld textarea:focus{outline:2px solid var(--copper);outline-offset:1px}
+.yn{display:inline-flex;border:1px solid rgba(235,236,237,.22);border-radius:6px;overflow:hidden;justify-self:end}
+.yn button{background:none;border:0;color:var(--muted);padding:.6rem .85rem;cursor:pointer;font-size:.82rem;font-weight:600}
+.yn button.on{background:var(--copper);color:#fff}
+.kit{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;padding:1rem;border-radius:6px;background:var(--ink-3);margin:1rem 0 1.2rem}
+.kit img{width:84px;height:105px;object-fit:cover;border-radius:3px}
+.kit ul{list-style:none;font-size:.84rem;color:#d6d8db;line-height:1.6}
+.kit ul li::before{content:"— ";color:var(--copper-soft)}
+.kit a{display:inline-flex;margin-top:.6rem;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--copper-soft);text-decoration:none;border-bottom:1px solid currentColor}
+.sumbar{margin-top:1.2rem;display:grid;grid-template-columns:repeat(3,1fr) auto;gap:1.2rem;align-items:center;padding:1.4rem 1.6rem;border-radius:6px;background:var(--paper);color:var(--ink)}
+.sumbar div{font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted-dark)}
+.sumbar div b{display:block;font-family:var(--serif);font-size:2rem;letter-spacing:0;text-transform:none;font-weight:400;color:var(--ink);margin-top:.3rem}
+.sumbar div.t b{color:var(--copper)}
+.cta{display:inline-flex;justify-content:center;align-items:center;gap:.6rem;background:var(--copper);color:#fff;border:0;border-radius:999px;padding:.95rem 1.5rem;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap}
+.cta:hover{background:var(--copper-ink)}
+.cta.alt{background:none;border:1px solid currentColor;color:inherit}
+
+/* confirm */
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.recap{margin-top:1.6rem;border-top:1px solid var(--lline)}
+.recap div{display:flex;justify-content:space-between;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--lline);font-size:.9rem;color:var(--body)}
+.recap div b{color:var(--ink);font-weight:600;text-align:right}
+.recap div.tot{border-bottom:0;padding-top:1rem}
+.recap div.tot b{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--copper)}
+.form{background:#fff;border:1px solid var(--lline);border-radius:6px;padding:1.8rem}
+.form h3{font-size:1.9rem}
+.form .s{font-size:.86rem;color:var(--muted-dark);margin:.3rem 0 1.2rem}
+.fld{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
+.fld label{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted-dark)}
+.fld input,.fld textarea{border:1px solid rgba(18,19,21,.2);border-radius:6px;padding:.75rem .8rem;font-size:.95rem;background:#fbf9f5;color:var(--ink)}
+.fld input[readonly]{background:var(--paper-2);color:var(--body)}
+.fld input[aria-invalid=true]{border-color:#b3261e}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.chk{display:flex;gap:.6rem;align-items:flex-start;font-size:.86rem;line-height:1.5;color:var(--body);margin:.4rem 0 .8rem;cursor:pointer}
+.chk input{margin-top:.25rem;accent-color:var(--copper);width:16px;height:16px;flex-shrink:0}
+.chk a{color:var(--copper-ink)}
+.msg{min-height:1.2rem;font-size:.84rem;color:#b3261e;margin-bottom:.6rem}
+.done{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--lline)}
+.done.show{display:block}
+.done p{font-size:.88rem;margin-bottom:.8rem}
+.done .btns{display:flex;gap:.7rem;flex-wrap:wrap}
+.form .cta.alt{color:var(--ink)}
+
+/* terms */
+.terms ol{list-style:none;counter-reset:t;display:grid;grid-template-columns:1fr 1fr;gap:0 3rem}
+.terms li{counter-increment:t;display:grid;grid-template-columns:2.4rem 9.5rem 1fr;gap:.6rem;padding:.85rem 0;border-top:1px solid var(--lline);font-size:.84rem;line-height:1.55;color:var(--body)}
+.terms li::before{content:counter(t,decimal-leading-zero);font-family:var(--serif);font-style:italic;color:var(--copper);font-size:1.05rem}
+.terms li b{color:var(--ink);font-weight:600}
+
+/* end */
+.end{align-items:center;justify-content:center;text-align:center}
+.end .bg{position:absolute;inset:0}
+.end .bg img{width:100%;height:100%;object-fit:cover;opacity:.35}
+.end .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,rgba(18,19,21,.55),var(--ink))}
+.end .c{position:relative;z-index:2;padding:6rem var(--pad)}
+.end h2{margin:1rem 0 1.4rem}
+.end .mail{font-family:var(--serif);font-size:clamp(1.4rem,2.6vw,2.2rem);color:var(--copper-soft);text-decoration:none;border-bottom:1px solid rgba(224,138,90,.4)}
+.end .lg{display:flex;align-items:center;justify-content:center;gap:1.4rem;margin-top:3rem}
+.end .lg .sep{width:1px;height:40px;background:rgba(235,236,237,.3)}
+.end .lg img.aa{height:26px;width:auto}
+.end .lg img.ln{height:52px;width:auto}
+.end .web{margin-top:1.4rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+[data-show-nzd]{display:none}
+html[data-cur=NZD] [data-show-nzd]{display:revert}
+html[data-cur=NZD] [data-show-aud]{display:none}
+
+/* dealer unlock */
+html:not(.dealer-on) .dl-only{display:none!important}
+.dlbtn{display:inline-flex;align-items:center;gap:.5em;background:none;border:1px solid currentColor;color:inherit;border-radius:999px;padding:.42rem .85rem;font:700 .64rem/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap;background:rgba(18,19,21,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+body.on-paper .dlbtn{background:rgba(243,239,232,.6)}
+.dlbtn:hover{opacity:1}
+html.dealer-on .dlbtn{background:var(--copper);border-color:var(--copper);color:#fff}
+body.modal-open{overflow:hidden}
+.dlmodal{position:fixed;inset:0;z-index:60;background:rgba(10,10,12,.62);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
+.dlmodal[hidden]{display:none}
+.dlcard{width:100%;max-width:420px;background:#18191c;color:#f3efe8;border:1px solid rgba(243,239,232,.14);border-radius:8px;padding:1.8rem 1.7rem 1.5rem;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.dlcard h2{font-size:2rem;margin:.5rem 0 .6rem}
+.dlcard p{font-size:.86rem;line-height:1.6;color:rgba(243,239,232,.72);margin:0 0 1.1rem}
+.dlcard input{width:100%;box-sizing:border-box;background:#121315;border:1px solid rgba(243,239,232,.2);color:#f3efe8;border-radius:6px;padding:.8rem .9rem;font:500 1rem Manrope,sans-serif}
+.dlcard input:focus{outline:2px solid var(--copper);outline-offset:1px;border-color:transparent}
+.dlcard .row{display:flex;gap:.7rem;margin-top:1rem}
+.dlcard .row button{flex:1;border-radius:999px;padding:.8rem 1rem;font:700 .7rem Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.dlcard .go{background:var(--copper);border:1px solid var(--copper);color:#fff}
+.dlcard .go:disabled{opacity:.6}
+.dlcard .cancel{background:none;border:1px solid rgba(243,239,232,.3);color:#f3efe8}
+.dlcard .msg{min-height:1.2em;color:#e08a5a;font-size:.8rem;margin-top:.7rem}
+@media (max-width:620px){.dlbtn span{display:none}.dlbtn{padding:.48rem .6rem}}
+
+@media (max-width:1600px){.curnote{display:none}}
+@media (max-width:1260px){.bar nav{display:none}}
+@media (max-width:980px){
+  .head2,.ord-grid,.fs-grid,.cf-grid,.plan-grid{grid-template-columns:1fr;gap:1.6rem}
+  .ladder,.sv-grid{grid-template-columns:1fr}
+  .cond{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr}
+  .split .pic{min-height:46vh;order:-1}
+  .split .txt{padding:3.5rem var(--pad) 4rem}
+  .terms ol{grid-template-columns:1fr}
+  .sumbar{grid-template-columns:1fr 1fr}
+  .sumbar .cta{grid-column:1/-1}
+  .cover .visual{inset:0}
+  .cover .visual::after{background:linear-gradient(0deg,var(--ink) 18%,rgba(18,19,21,.55) 55%,rgba(18,19,21,.25) 100%)}
+}
+@media (max-width:620px){
+  .sec,.plan,.cfg{padding-top:5.6rem;padding-bottom:3.6rem}
+  .bar{padding:.8rem 1rem}
+  .bar .logo{height:16px}.bar .linn{height:26px}.bar .logos{gap:.7rem}
+  .curnote{display:none}
+  .cond{grid-template-columns:1fr}
+  .terms li{grid-template-columns:2rem 1fr}
+  .terms li span{grid-column:2}
+  .q{grid-template-columns:1fr 5.4rem}
+  .two{grid-template-columns:1fr}
+  .kit{grid-template-columns:1fr}
+  .kit img{width:100%;height:180px}
+  .bonus{flex-direction:column;align-items:flex-start;gap:.6rem}
+  .sumbar div b{font-size:1.6rem}
+  .meta{gap:1rem 1.6rem}
+  .cfg{padding-left:.6rem;padding-right:.6rem}
+  .cfg .head2,.cfg .cfg-actions{padding:0 .65rem}
+}
 </style>
 </head>
 <body>
-<header><img id="lg" src="img/aa-logo-rev.svg" alt="Advance Audio"><span class="sep"></span><img src="img/linn-white.png" alt="Linn" style="height:34px"></header>
-<main>
-  <div class="card">
-    <img class="em" src="img/linn-white-mark.png" alt="" style="width:64px;height:auto">
-    <div class="eyebrow">Dealer access · Linn Selekt DSM</div>
-    <h1>Choose your DAC. <em>We’ll raise you one.</em></h1>
-    <p>This presentation contains confidential dealer pricing. Please enter the password supplied by your <span id="co">Advance Audio</span> rep.</p>
-    <form id="f" autocomplete="off">
-      <label for="pw">Password</label>
-      <div class="row"><input id="pw" type="password" autocomplete="current-password" required autofocus><button id="go" type="submit">Enter</button></div>
-      <div class="msg" id="msg" role="alert" aria-live="assertive"></div>
+
+<header class="bar" id="bar">
+  <div class="logos">
+    <span data-show-aud><img class="logo light" src="img/aa-logo-rev.svg" alt="Advance Audio"><img class="logo dark" src="img/aa-logo.svg" alt="Advance Audio"></span>
+    <span data-show-nzd><img class="logo light" src="img/advanceone-reversed.png" alt="Advance One"><img class="logo dark" src="img/advanceone.png" alt="Advance One"></span>
+    <span class="sep"></span>
+    <img class="linn light" src="img/linn-white.png" alt="Linn">
+    <img class="linn dark" src="img/linn-black.png" alt="Linn">
+  </div>
+  <nav>
+    <a href="#offer" data-sec="offer">Offer</a>
+    <a href="#savings" data-sec="savings">Savings</a>
+    <a href="#ordering" data-sec="ordering">Ordering</a>
+    <a href="#targets" data-sec="targets">Targets</a>
+    <a href="#floorstock" data-sec="floorstock">Floor stock</a>
+    <a href="#configurator" data-sec="configurator">Configurator</a>
+    <a href="#plan" data-sec="plan">Your plan</a>
+    <a href="#terms" data-sec="terms">Terms</a>
+  </nav>
+  <div class="right">
+    <span class="curnote" id="curNote"></span>
+    <button type="button" class="dlbtn" id="dealerBtn" aria-pressed="false" title="Advance Audio and Advance One dealers: show dealer cost prices"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Dealer pricing</span></button>
+    <div class="seg" role="group" aria-label="Pricing currency">
+      <button type="button" data-cur="AUD">AUD</button><button type="button" data-cur="NZD">NZD</button>
+    </div>
+  </div>
+</header>
+<div class="progress" id="progress"></div>
+
+<main class="deck" id="deck">
+
+<section class="slide cover" id="cover">
+  <div class="visual"><img src="img/hero.jpg" alt="Linn Selekt DSM in black on a dark timber sideboard"></div>
+  <div class="copy">
+    <div class="eyebrow r">Linn Selekt DSM · New to Linn promotion</div>
+    <h1 class="r d1">The next level<br>is <em>on us.</em></h1>
+    <p class="lead r d2">Customers buying a Selekt DSM Classic or Edition with an output cartridge and DAC are upgraded to the next level of DAC at no extra cost. It’s a short campaign, so build your list and book demos now.</p>
+    <div class="meta r d3">
+      <div><b>16 Nov – 5 Jan</b>New-customer orders</div>
+      <div><b>Up to <span class="cur" data-max></span></b>Customer saving</div>
+      <div><b>+ dealer credit</b>For conversions and marketing</div>
+    </div>
+    <a class="scroll-cue r d4" href="#offer"><span>&#8595;</span>See the offer</a>
+  </div>
+</section>
+
+<section class="slide paper sec" id="offer">
+  <div class="head2">
+    <div><div class="eyebrow r">The offer</div><h2 class="r d1">Choose your DAC.<br><em>We’ll raise you one.</em></h2></div>
+    <p class="lead r d2">Following on from the OTR, Linn is opening the festive season with a New to Linn promotion. It’s a strong way to bring new customers into Selekt DSM and set up the upgrade business that follows.</p>
+  </div>
+  <div class="ladder" id="ladder"></div>
+  <div class="cond r d3">
+    <div><b>When</b>New-customer Selekt DSM orders placed 16 November 2026 to 5 January 2027.</div>
+    <div><b>Eligible</b>Selekt Classic or Edition Hub ordered with an output cartridge and a DAC.</div>
+    <div><b>One per DSM</b>One DAC upgrade per Selekt DSM, even if the system has multiple DACs.</div>
+    <div><b>Customer orders</b>For customer orders only. Demo purchases aren’t eligible for the upgrade.</div>
+  </div>
+</section>
+
+<section class="slide sec" id="savings">
+  <div class="sv-top">
+    <div><div class="eyebrow r">Customer savings</div><h2 class="r d1" style="margin-top:1rem">What it’s <em>worth.</em></h2>
+      <p class="lead r d2" style="margin-top:1rem">Every route to the upgrade, priced on the full Selekt DSM retail bundle the customer pays for and the one they receive.</p></div>
+    <div class="tabs r d2" role="tablist" aria-label="Choose hub">
+      <button type="button" class="on" data-hub="Selekt Classic" role="tab" aria-selected="true">Selekt Classic</button>
+      <button type="button" data-hub="Selekt Edition Hub" role="tab" aria-selected="false">Selekt Edition</button>
+    </div>
+  </div>
+  <div class="sv-grid r d3" id="svGrid"></div>
+  <p class="fine r d3" id="svFine"></p>
+</section>
+
+<section class="slide paper sec" id="ordering">
+  <div class="ord-grid">
+    <div>
+      <div class="eyebrow r">Ordering</div>
+      <h2 class="r d1" style="margin:1rem 0 1.6rem">How to <em>Order</em></h2>
+      <ol class="steps r d2">
+        <li><span class="n">01</span><div><b>Flag the Summer Incentive</b><p>Tell Orders you’re using the Summer Incentive on the order. It won’t be applied automatically.</p></div></li>
+        <li><span class="n">02</span><div><b>Spell out both builds</b><p>Clearly state what the customer is paying for and what they should receive.</p></div></li>
+        <li><span class="n">03</span><div><b>One DAC upgrade per Selekt DSM</b><p>Even when a system has multiple DACs, only one DAC moves up a level.</p></div></li>
+        <li><span class="n">04</span><div><b>Dual mono Organik</b><p>Order a stereo Organik Selekt DSM with a stereo Line Out cartridge and the customer receives 2 × Organik Mono DAC. They pay the difference for 2 × Mono Line Out cartridges.</p></div></li>
+      </ol>
+    </div>
+    <div class="example r d3">
+      <div class="eyebrow">Order example</div>
+      <h3>Selekt DSM Edition, Line Out, Katalyst</h3>
+      <dl>
+        <dt>Pays for</dt><dd>Selekt DSM Edition + Line Out + Katalyst DAC · <span class="cur" data-p="Selekt Edition Hub|Line Out|1|pay"></span></dd>
+        <dt>Receives</dt><dd>Selekt DSM Edition + Line Out + Organik DAC · <span class="cur" data-p="Selekt Edition Hub|Line Out|1|get"></span></dd>
+        <dt>Saving</dt><dd><b class="cur" data-p="Selekt Edition Hub|Line Out|1|save"></b> to the customer</dd>
+        <dt class="dl-only">Dealer</dt><dd class="dl-only">Cost price <span data-cp>inc</span> <b class="cur" data-p="Selekt Edition Hub|Line Out|1|dpay"></b> · receive <span class="cur" data-p="Selekt Edition Hub|Line Out|1|dget"></span> dealer value</dd>
+        <dt>Order note</dt><dd>“Summer Incentive: Selekt DSM Edition + Line Out + Katalyst, upgraded to Organik through the promotion.”</dd>
+      </dl>
+      <p class="mail">Send orders to <a data-mail href="mailto:orders@advanceaudio.com.au">orders@advanceaudio.com.au</a>. The configurator below prints the exact build to quote and order for any combination.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="targets">
+  <div class="split">
+    <div class="txt">
+      <div class="eyebrow r">Who to call first</div>
+      <h2 class="r d1" style="margin-top:1rem">Start with the <em>warmest</em> opportunities.</h2>
+      <p class="lead r d2" style="margin-top:1.2rem">There’s been no notice period on this one. It arrives straight after 343, and it’s a shorter campaign, so build a prospect list, book demos and start conversations now.</p>
+      <ul class="warm r d2">
+        <li><span class="n">01</span><div><b>Selekt DSM considerers</b>Customers already looking at Selekt DSM who haven’t committed yet.</div></li>
+        <li><span class="n">02</span><div><b>Great speakers, weaker source</b>Customers with good speakers and amplifiers but a less impressive source. A good demo will encourage them to make the step up.</div></li>
+        <li><span class="n">03</span><div><b>Older Linn streamers</b>Existing Linn customers with older streamers, particularly Akurate or Majik DSM.</div></li>
+      </ul>
+      <p class="quote r d3">The demo is key. Let customers hear the difference between DAC levels, and show the long-term value of Selekt’s upgradeable platform.</p>
+    </div>
+    <div class="pic"><img src="img/target.jpg" alt="Linn Selekt DSM beside a walnut loudspeaker" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="slide paper sec" id="floorstock">
+  <div class="fs-grid">
+    <div class="fs-pic r"><img src="img/floor.jpg" alt="Linn Selekt DSM in silver on a timber sideboard in a living room" loading="lazy"></div>
+    <div>
+      <div class="eyebrow r">Floor stock</div>
+      <h2 class="r d1" style="margin-top:1rem">Hear it <em>to sell it.</em></h2>
+      <p class="lead r d2" style="margin-top:1.2rem">The upgrade is easiest to sell when customers can hear it. A Selekt DSM on the floor with cartridges and DACs ready to swap turns “what’s the difference?” into a ten-minute listening session.</p>
+      <div class="bonus r d2"><div class="big">+5%</div><p><b>Extra floor-stock allowance.</b> Commit to floor stock in any Selekt DSM, cartridge or DAC between 16 November 2026 and 5 January 2027 and we’ll add a further 5% on top of your standard floor-stock allowance.</p></div>
+      <ul class="ticks r d3">
+        <li>Keep at least two DAC levels on hand so customers can compare Standard, Katalyst and Organik on the same system.</li>
+        <li>Demo with the customer’s own music, and on speakers close to what they own.</li>
+        <li>Show the upgrade path: today’s DAC choice isn’t the last one they’ll make.</li>
+        <li>The Summer Incentive upgrade applies to customer orders, not demo purchases. The extra 5% is how floor stock is rewarded.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide cfg paper" id="configurator">
+  <div class="head2">
+    <div><div class="eyebrow r">Selekt DSM configurator</div><h2 class="r d1">Price any build, <em>was and is.</em></h2></div>
+    <p class="lead r d2">Build the system the customer will receive. You’ll see the current retail price, the Summer Incentive price and the order line to send to Orders. Then export a branded spec sheet for your customer.</p>
+  </div>
+  <iframe class="cfg-frame" id="cfgFrame" title="Linn Selekt DSM configurator with Summer Incentive pricing" loading="lazy"></iframe>
+  <div class="cfg-actions"><a class="link-btn" id="cfgOpen" href="selektor/" target="_blank" rel="noopener">Open full screen &#8599;</a><span class="fine" style="margin:0">Retail prices <span data-show-aud>in AUD include GST</span><span data-show-nzd>in NZD include GST</span>.</span></div>
+</section>
+
+<section class="slide plan" id="plan">
+  <div class="head2">
+    <div><div class="eyebrow r">Your opportunity · Your marketing</div><h2 class="r d1">Your plan. <em>Our credit.</em></h2></div>
+    <p class="lead r d2">Tell us what you can do with this, and we’ll back you with credit towards new Linn floor stock orders. Fill in both sides, add your details and export your plan as a PDF.</p>
+  </div>
+  <div class="plan-grid">
+    <div class="pcard r d2">
+      <div class="eyebrow">01 · Your opportunity</div>
+      <h3>Who’s ready to step up?</h3>
+      <div class="offer-chip"><div class="v cur" data-credit="200"></div><p><b>For every customer you convert.</b> Each new-customer Selekt DSM order placed through the Summer Incentive earns <span data-credit-txt="200"></span> credit towards new Linn floor stock.</p></div>
+      <div class="q"><label for="qEntry">How many customers bought an entry or mid-level streamer from you in the past 3–5 years who may be ready to upgrade?</label><input id="qEntry" type="number" min="0" max="9999" inputmode="numeric" placeholder="0"></div>
+      <div class="q"><label for="qOlder">How many customers do you have with older Linn streamers?<small>For example Akurate or Majik DSM</small></label><input id="qOlder" type="number" min="0" max="9999" inputmode="numeric" placeholder="0"></div>
+      <div class="q"><label for="qSell">How many do you think you can sell?<small>Selekt DSM systems during the promotion</small></label><input id="qSell" type="number" min="0" max="999" inputmode="numeric" placeholder="0"></div>
+    </div>
+    <div class="pcard r d3">
+      <div class="eyebrow">02 · Your marketing</div>
+      <h3>Get it in front of them.</h3>
+      <div class="kit">
+        <img src="img/dac-the-halls.jpg" alt="Linn marketing artwork: DAC the halls. Choose your DAC, we’ll raise you one." loading="lazy">
+        <div><ul><li>3 social media posts</li><li>2 email (EDM) templates</li><li>Artwork that doesn’t mention a season, so it works in both hemispheres</li></ul>
+        <a href="https://www.dropbox.com/scl/fo/h54xi1hmkv1ocew4kssa0/AD1vhDmgOiXeKkXPZ4Yigiw?rlkey=urfpwd9n0049o47fvdfulgtfx&amp;dl=0" target="_blank" rel="noopener">Download Linn’s campaign kit &#8599;</a></div>
+      </div>
+      <div class="offer-chip"><div class="v cur" data-credit="100"></div><p><b>For every one you do.</b> Each EDM sent (up to 2), each social post published (up to 2) and listing the offer on your website earns <span data-credit-txt="100"></span> credit towards new Linn floor stock, up to <span data-credit-txt="500"></span> in total.</p></div>
+      <div class="q"><label for="qEdm">How many EDMs will you send? <small>(up to 2)</small></label><input id="qEdm" type="number" min="0" max="2" inputmode="numeric" placeholder="0"></div>
+      <div class="q"><label for="qSocial">How many social media posts will you publish? <small>(up to 2)</small></label><input id="qSocial" type="number" min="0" max="2" inputmode="numeric" placeholder="0"></div>
+      <div class="q"><label id="qWebL">Will you list this promotion on your website?</label><div class="yn" role="group" aria-labelledby="qWebL" id="qWeb"><button type="button" data-v="1">Yes</button><button type="button" data-v="0">No</button></div></div>
+    </div>
+  </div>
+  <div class="sumbar r d3">
+    <div>Conversion credit<b class="cur" id="sConv">$0</b></div>
+    <div>Marketing credit<b class="cur" id="sMkt">$0</b></div>
+    <div class="t">Potential credit<b class="cur" id="sTot">$0</b></div>
+    <a class="cta" href="#confirm">Add your details &amp; export PDF &#8595;</a>
+  </div>
+  <p class="fine r d3"><span data-show-aud>Credit values are in AUD and include GST.</span><span data-show-nzd>Credit values are in NZD and exclude GST.</span> Credit is earned on what you actually deliver: converted orders placed through the Summer Incentive, and marketing activity confirmed with your rep. Credit will be calculated after the promotion finishes. You will be notified how much credit you have earnt and your rep will work out an order with you.</p>
+</section>
+
+<section class="slide paper sec" id="confirm">
+  <div class="cf-grid">
+    <div>
+      <div class="eyebrow r">Export your plan</div>
+      <h2 class="r d1" style="margin-top:1rem">Lock it <em>in.</em></h2>
+      <p class="lead r d2" style="margin-top:1.1rem">Check your answers, add your details and generate your plan as a PDF. Send it to your <span data-show-aud>Advance Audio</span><span data-show-nzd>Advance One</span> rep so we can track your credit through the promotion.</p>
+      <div class="recap r d2" id="recap"></div>
+    </div>
+    <form class="form r d2" id="cform" novalidate>
+      <h3>Your details</h3>
+      <p class="s">These appear on your PDF.</p>
+      <div class="fld"><label for="fDealer">Dealership name</label><input id="fDealer" autocomplete="organization" required></div>
+      <div class="two">
+        <div class="fld"><label for="fName">Your name</label><input id="fName" autocomplete="name" required></div>
+        <div class="fld"><label for="fDate">Date</label><input id="fDate" readonly tabindex="-1"></div>
+      </div>
+      <div class="fld"><label for="fEmail">Your email</label><input id="fEmail" type="email" autocomplete="email" required></div>
+      <div class="fld"><label for="fNotes">Notes for your rep (optional)</label><textarea id="fNotes" rows="3" maxlength="600" placeholder="For example, demo dates booked or floor stock you’d like to discuss"></textarea></div>
+      <label class="chk"><input type="checkbox" id="fFloor"> <span>I’d like to talk about Selekt DSM floor stock with the extra 5% allowance.</span></label>
+      <label class="chk"><input type="checkbox" id="fAgree"> <span>I’ve read and agree to the <a href="#terms">promotion terms</a>.</span></label>
+      <div class="msg" id="formMsg" role="alert"></div>
+      <button class="cta" type="submit" id="genBtn">Generate my PDF</button>
+      <div class="done" id="done">
+        <p id="doneTxt">Your PDF has downloaded.</p>
+        <div class="btns">
+          <button class="cta" type="button" id="mailBtn">Email it to me</button>
+          <button class="cta alt" type="button" id="dlBtn">Download again</button>
+        </div>
+      </div>
     </form>
   </div>
+</section>
+
+<section class="slide paper sec terms" id="terms" style="background:var(--paper-2)">
+  <div class="head2">
+    <div><div class="eyebrow r">Promotion terms</div><h2 class="r d1">The <em>fine print.</em></h2></div>
+    <p class="lead r d2">Plain and simple. If anything here isn’t clear, your rep will walk you through it.</p>
+  </div>
+  <ol class="r d2" id="termsList"></ol>
+</section>
+
+<section class="slide end" id="contact">
+  <div class="bg"><img src="img/wide.jpg" alt="" loading="lazy"></div>
+  <div class="c">
+    <div class="eyebrow r">Let’s get started</div>
+    <h2 class="r d1">Book the <em>demos.</em></h2>
+    <a class="mail r d2" data-mail href="mailto:orders@advanceaudio.com.au">orders@advanceaudio.com.au</a>
+    <div class="lg r d3">
+      <img class="aa" data-show-aud src="img/aa-logo-rev.svg" alt="Advance Audio"><img class="aa" data-show-nzd src="img/advanceone-reversed.png" alt="Advance One">
+      <span class="sep"></span><img class="ln" src="img/linn-white.png" alt="Linn">
+    </div>
+    <div class="web r d4" id="webTxt">advanceaudio.com.au</div>
+  </div>
+</section>
+
 </main>
-<footer>Need access? <a id="ml" href="mailto:orders@advanceaudio.com.au">orders@advanceaudio.com.au</a></footer>
-<script>
-(()=>{
-try{const q=new URLSearchParams(location.search).get('cur');const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
- if((q&&q.toUpperCase()==='NZD')||(!q&&/^Pacific\/(Auckland|Chatham)$/.test(tz))){document.getElementById('lg').src='img/advanceone-reversed.png';document.getElementById('lg').alt='Advance One';document.getElementById('co').textContent='Advance One';const m=document.getElementById('ml');m.href='mailto:Jason@advanceone.co.nz';m.textContent='Jason@advanceone.co.nz'}}catch(e){}
-const E={salt:"8tZRMT6qLvkjR2O4I3Btpg==",iv:"pLkXzGleBt6xHDmc",it:310000,ct:"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"};
-const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-async function unlock(pw){
-  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
-  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(E.salt),iterations:E.it,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-  const gz=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(E.iv)},key,b64(E.ct));
-  const stream=new Blob([gz]).stream().pipeThrough(new DecompressionStream('gzip'));
-  return await new Response(stream).text();
-}
-const f=document.getElementById('f'),pw=document.getElementById('pw'),msg=document.getElementById('msg'),go=document.getElementById('go');
-f.addEventListener('submit',async e=>{
-  e.preventDefault();if(!pw.value)return;
-  go.disabled=true;go.textContent='Checking';msg.textContent='';pw.removeAttribute('aria-invalid');
-  let html;
-  try{html=await unlock(pw.value)}
-  catch(err){go.disabled=false;go.textContent='Enter';
-    if(!window.crypto||!crypto.subtle||typeof DecompressionStream==='undefined'){msg.textContent='Please open this page in an up-to-date browser (Chrome, Safari, Edge or Firefox).';return}
-    msg.textContent='That password isn’t right. Please try again.';pw.setAttribute('aria-invalid','true');pw.select();return}
-  document.open();document.write(html);document.close();
-});
-})();
-</script>
+
+<div class="dlmodal" id="dlModal" hidden>
+  <form class="dlcard" id="dlForm" role="dialog" aria-modal="true" aria-labelledby="dlTitle">
+    <div class="eyebrow">Dealers only</div>
+    <h2 id="dlTitle">Dealer pricing</h2>
+    <p>Enter the dealer password to show cost prices next to the retail prices on this page and in the configurator. <span data-show-aud>Ask your Advance Audio rep if you need it.</span><span data-show-nzd>Ask Jason@advanceone.co.nz if you need it.</span></p>
+    <label class="sr" for="dlPw" style="position:absolute;left:-9999px">Dealer password</label>
+    <input type="password" id="dlPw" autocomplete="current-password" placeholder="Dealer password" required>
+    <div class="msg" id="dlMsg" role="alert"></div>
+    <div class="row"><button type="button" class="cancel" id="dlClose">Cancel</button><button type="submit" class="go" id="dlGo">Unlock</button></div>
+  </form>
+</div>
+
+<script>window.ROUTES={"routes":[{"chassis":"Selekt Classic","card":"Line Out","steps":[{"from":"Standard DAC","to":"Katalyst DAC","pay":{"AUD":11995,"NZD":12995},"get":{"AUD":14995,"NZD":16995},"save":{"AUD":3000,"NZD":4000}},{"from":"Katalyst DAC","to":"Organik Stereo DAC","pay":{"AUD":14995,"NZD":16995},"get":{"AUD":17995,"NZD":19995},"save":{"AUD":3000,"NZD":3000}},{"from":"Organik Stereo DAC","to":"Dual Mono Organik","pay":{"AUD":20590,"NZD":22695},"dsm":{"AUD":17995,"NZD":19995},"upg":{"AUD":2595,"NZD":2700},"get":{"AUD":24995,"NZD":27995},"save":{"AUD":4405,"NZD":5300},"mono":true}]},{"chassis":"Selekt Classic","card":"Power Out","steps":[{"from":"Standard DAC","to":"Katalyst DAC","pay":{"AUD":12495,"NZD":13995},"get":{"AUD":14995,"NZD":16995},"save":{"AUD":2500,"NZD":3000}},{"from":"Katalyst DAC","to":"Organik Stereo DAC","pay":{"AUD":14995,"NZD":16995},"get":{"AUD":18495,"NZD":20995},"save":{"AUD":3500,"NZD":4000}}]},{"chassis":"Selekt Classic","card":"Hybrid Power Out","steps":[{"from":"Standard DAC","to":"Katalyst DAC","pay":{"AUD":11830,"NZD":12860},"get":{"AUD":14580,"NZD":15920},"save":{"AUD":2750,"NZD":3060}},{"from":"Katalyst DAC","to":"Organik Stereo DAC","pay":{"AUD":14580,"NZD":15920},"get":{"AUD":18270,"NZD":19970},"save":{"AUD":3690,"NZD":4050}}]},{"chassis":"Selekt Edition Hub","card":"Line Out","steps":[{"from":"Standard DAC","to":"Katalyst DAC","pay":{"AUD":19995,"NZD":21995},"get":{"AUD":22740,"NZD":24995},"save":{"AUD":2745,"NZD":3000}},{"from":"Katalyst DAC","to":"Organik Stereo DAC","pay":{"AUD":22740,"NZD":24995},"get":{"AUD":25940,"NZD":28995},"save":{"AUD":3200,"NZD":4000}},{"from":"Organik Stereo DAC","to":"Dual Mono Organik","pay":{"AUD":28535,"NZD":31695},"dsm":{"AUD":25940,"NZD":28995},"upg":{"AUD":2595,"NZD":2700},"get":{"AUD":32985,"NZD":36995},"save":{"AUD":4450,"NZD":5300},"mono":true}]},{"chassis":"Selekt Edition Hub","card":"Power Out","steps":[{"from":"Standard DAC","to":"Katalyst DAC","pay":{"AUD":20995,"NZD":22995},"get":{"AUD":23740,"NZD":25995},"save":{"AUD":2745,"NZD":3000}},{"from":"Katalyst DAC","to":"Organik Stereo DAC","pay":{"AUD":23740,"NZD":25995},"get":{"AUD":26940,"NZD":29995},"save":{"AUD":3200,"NZD":4000}}]},{"chassis":"Selekt Edition Hub","card":"Hybrid Power Out","steps":[{"from":"Standard DAC","to":"Katalyst DAC","pay":{"AUD":19030,"NZD":20960},"get":{"AUD":21780,"NZD":24020},"save":{"AUD":2750,"NZD":3060}},{"from":"Katalyst DAC","to":"Organik Stereo DAC","pay":{"AUD":21780,"NZD":24020},"get":{"AUD":25470,"NZD":28070},"save":{"AUD":3690,"NZD":4050}}]}],"monoPair":{"AUD":3695,"NZD":3995},"lineOut":{"AUD":1100,"NZD":1295}};</script>
+<script src="dealer.js"></script>
+<script src="lib/jspdf.umd.min.js" defer></script>
+<script src="pdf-assets.js" defer></script>
+<script src="app.js" defer></script>
 </body>
 </html>

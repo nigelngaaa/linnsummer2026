@@ -1,7 +1,8 @@
 /* Linn Selekt DSM Summer Incentive — Advance Audio / Advance One dealer page */
 (function(){
 const $=id=>document.getElementById(id);
-const R=window.ROUTES.routes, MONO=window.ROUTES.monoPair, LO=window.ROUTES.lineOut;
+let R=window.ROUTES.routes, DEALER=null;
+const MONO=window.ROUTES.monoPair, LO=window.ROUTES.lineOut;
 const MK={
   AUD:{co:'Advance Audio',full:'Advance Audio Australia',web:'advanceaudio.com.au',mail:'orders@advanceaudio.com.au',gst:'inc GST',retail:'Australian recommended retail in AUD, including GST',credGst:'inc GST'},
   NZD:{co:'Advance One',full:'Advance One',web:'advanceone.co.nz',mail:'Jason@advanceone.co.nz',gst:'ex GST',retail:'New Zealand recommended retail in NZD, including GST',credGst:'ex GST'}
@@ -68,14 +69,14 @@ function renderSavings(){
       <div class="sv-row"><div class="rt">${DACN[s.from]} &#8594; ${DACN[s.to]}${s.mono?'*':''}<small>${s.mono?'Customer pays the Mono Line Out difference':'Next DAC level, no extra cost'}</small></div>
       <div class="amt">${money(s.save[cur])}<small>Customer saves</small></div>
       <div class="px">${s.mono?`Pays <b>${money(s.dsm[cur]+s.upg[cur])}</b> <span class="brk">(${money(s.dsm[cur])} + ${money(s.upg[cur])} Mono Line Out difference)</span>`:`Pays <b>${money(s.pay[cur])}</b>`} · receives <s>${money(s.get[cur])}</s></div>
-      <div class="px dl">Dealer: cost price ${cur==='NZD'?'ex':'inc'} <b>${money2(s.dpay[cur])}</b> · receive <s>${money2(s.dget[cur])}</s></div></div>`).join('')}</div>`}).join('');
-  $('svFine').innerHTML=`Prices are ${MK[cur].retail}, from the current Linn Selekt DSM retail list used in the Advance Audio Selekt DSM configurator. Savings are the difference between the full Selekt DSM bundle the customer pays for and the one they receive, so they can differ from individual module price differences. Dealer prices are from the October 2026 Linn dealer list (${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}). *Dual mono: the customer orders a stereo Organik Selekt DSM with a stereo Line Out cartridge and receives dual mono Organik (2 × Organik Mono DAC). The Mono Line Out cartridges are not part of the upgrade, so the customer pays the difference between 2 × Mono Line Out cartridges (${money(MONO[cur])} RRP) and the stereo Line Out cartridge (${money(LO[cur])} RRP): ${money(MONO[cur]-LO[cur])}.`;
+      ${DEALER?`<div class="px dl">Dealer: cost price ${cur==='NZD'?'ex':'inc'} <b>${money2(s.dpay[cur])}</b> · receive <s>${money2(s.dget[cur])}</s></div>`:''}</div>`).join('')}</div>`}).join('');
+  $('svFine').innerHTML=`Prices are ${MK[cur].retail}, from the current Linn Selekt DSM retail list used in the Advance Audio Selekt DSM configurator. Savings are the difference between the full Selekt DSM bundle the customer pays for and the one they receive, so they can differ from individual module price differences. ${DEALER?`Dealer prices are from the October 2026 Linn dealer list (${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}).`:''} *Dual mono: the customer orders a stereo Organik Selekt DSM with a stereo Line Out cartridge and receives dual mono Organik (2 × Organik Mono DAC). The Mono Line Out cartridges are not part of the upgrade, so the customer pays the difference between 2 × Mono Line Out cartridges (${money(MONO[cur])} RRP) and the stereo Line Out cartridge (${money(LO[cur])} RRP): ${money(MONO[cur]-LO[cur])}.`;
 }
 
 /* ---------- inline price tokens ---------- */
 function renderTokens(){
   document.querySelectorAll('[data-max]').forEach(e=>e.textContent=money(Math.max(maxSave(0,cur),maxSave(1,cur),maxSave(2,cur))));
-  document.querySelectorAll('[data-p]').forEach(e=>{const [h,c,i,k]=e.dataset.p.split('|');e.textContent=(k[0]==='d'?money2:money)(route(h,c).steps[+i][k][cur])});
+  document.querySelectorAll('[data-p]').forEach(e=>{const [h,c,i,k]=e.dataset.p.split('|');if(k[0]==='d'&&!DEALER){e.textContent='';return}e.textContent=(k[0]==='d'?money2:money)(route(h,c).steps[+i][k][cur])});
   document.querySelectorAll('[data-dtag]').forEach(e=>e.textContent=dTag());
   document.querySelectorAll('[data-cp]').forEach(e=>e.textContent=cur==='NZD'?'ex':'inc');
   document.querySelectorAll('[data-credit]').forEach(e=>e.textContent=money(+e.dataset.credit));
@@ -125,11 +126,41 @@ function terms(){
     ['Floor-stock bonus','Commit to floor stock in any Selekt DSM, cartridge or DAC during the promotion period and receive an additional 5% floor-stock allowance on top of your standard allowance.'],
     ['Using your credit',`Credit is applied to your ${co} account for use towards new Linn floor stock orders. It has no cash value. Credit will be calculated after the promotion finishes. You will be notified how much credit you have earnt and your rep will work out an order with you.`],
     ['Your plan','Numbers in your plan are your own estimates. Credit is based on the orders and marketing activity you actually deliver.']
-  ];
+  ].filter(t=>DEALER||t[0]!=='Dealer pricing');
 }
 function renderTerms(){$('termsList').innerHTML=terms().map(t=>`<li><b>${esc(t[0])}</b><span>${esc(t[1])}</span></li>`).join('')}
 
 function renderAll(){renderLadder();renderSavings();renderTokens();renderPlan();renderTerms()}
+
+/* ---------- dealer pricing unlock ----------
+   The public page carries RRP only. Dealer prices live in dealer.js, AES-GCM encrypted
+   (PBKDF2-SHA256) with the dealer password, and are only decrypted in the browser. */
+let DSAVED=null;
+const dlBtn=$('dealerBtn'), dlModal=$('dlModal'), dlPw=$('dlPw'), dlMsg=$('dlMsg');
+function dlLabel(){const on=!!DEALER;document.documentElement.classList.toggle('dealer-on',on);
+  dlBtn.querySelector('span').textContent=on?'Hide dealer pricing':(DSAVED?'Show dealer pricing':'Dealer pricing');
+  dlBtn.setAttribute('aria-pressed',on?'true':'false');}
+function dlApply(on){DEALER=on?DSAVED.dealer:null;R=on?DSAVED.routes:window.ROUTES.routes;dlLabel();renderAll();
+  if(frame.dataset.loaded){frame.dataset.loaded='';loadFrame()}}
+function dlOpen(){dlModal.hidden=false;document.body.classList.add('modal-open');dlMsg.textContent='';dlPw.value='';setTimeout(()=>dlPw.focus(),30)}
+function dlClose(){dlModal.hidden=true;document.body.classList.remove('modal-open');dlBtn.focus()}
+async function dlUnlock(pw){
+  const E=window.__DENC;if(!E)throw new Error('missing');
+  const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(E.salt),iterations:E.it,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(E.iv)},key,b64(E.ct))));
+}
+dlBtn.onclick=()=>{if(DEALER)dlApply(false);else if(DSAVED)dlApply(true);else dlOpen()};
+$('dlClose').onclick=dlClose;
+dlModal.onclick=e=>{if(e.target===dlModal)dlClose()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dlModal.hidden)dlClose()});
+$('dlForm').onsubmit=async e=>{e.preventDefault();const go=$('dlGo');
+  if(!window.crypto||!crypto.subtle){dlMsg.textContent='Please open this page over https in an up-to-date browser.';return}
+  go.disabled=true;go.textContent='Checking…';dlMsg.textContent='';
+  try{DSAVED=await dlUnlock(dlPw.value);dlClose();dlApply(true)}
+  catch(err){dlMsg.textContent=window.__DENC?'That password isn’t right. Please try again.':'Dealer pricing is unavailable right now.';dlPw.select()}
+  go.disabled=false;go.textContent='Unlock';};
 
 /* ---------- configurator iframe ---------- */
 const frame=$('cfgFrame');
@@ -138,7 +169,7 @@ const frame=$('cfgFrame');
 async function loadFrame(){if(frame.dataset.loaded)return;frame.dataset.loaded='1';
   const base=new URL('selektor/',location.href).href;
   try{const r=await fetch(base+'index.html',{cache:'no-store'});let h=await r.text();
-    h=h.replace(/<head>/i,'<head><base href="'+base+'"><script>window.__QS="?inpromo=1&cur='+cur+'";window.__DEALER='+JSON.stringify(window.ROUTES.dealer)+'<\/script>');
+    h=h.replace(/<head>/i,'<head><base href="'+base+'"><script>window.__QS="?inpromo=1&cur='+cur+'";window.__DEALER='+JSON.stringify(DEALER)+'<\/script>');
     frame.srcdoc=h;}
   catch(e){frame.src='selektor/?inpromo=1&cur='+cur}}
 window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='selekt-height'&&e.source===frame.contentWindow&&d.h>200)frame.style.height=Math.min(d.h+8,6000)+'px'});
