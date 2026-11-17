@@ -55,7 +55,7 @@ function renderLadder(){
            ['Katalyst','Organik','Buy a Katalyst and the customer receives Organik.'],
            ['Stereo Organik','Dual Mono Organik','Buy stereo Organik and the customer receives dual mono Organik.*']];
   $('ladder').innerHTML=L.map((l,i)=>`<div class="rung r d${i+1}"><div class="n">0${i+1}</div><div class="buy">Customer buys</div><div class="from">${l[0]}</div><div class="arrow">&#8595;</div><div class="buy">Customer receives</div><div class="to"><em>${l[1]}</em></div>
-    <div class="foot">Customer saves <b>up to ${money(maxSave(i,cur))}</b>${i===2?'<br>*Customer pays the difference to change the stereo Line Out cartridge for 2 × Mono Line Out cartridges.':''}</div></div>`).join('');
+    ${i===2?'<div class="foot">*Customer pays the difference to change the stereo Line Out cartridge for 2 × Mono Line Out cartridges.</div>':''}</div>`).join('');
 }
 
 /* ---------- savings ---------- */
@@ -67,10 +67,10 @@ function renderSavings(){
     const r=route(hub,card);
     return `<div class="sv-card"><h3>${card==='Hybrid Power Out'?'Hybrid':card}</h3><div class="sub">${hubName} · ${CARD[card]}</div>${r.steps.map(s=>`
       <div class="sv-row"><div class="rt">${DACN[s.from]} &#8594; ${DACN[s.to]}${s.mono?'*':''}<small>${s.mono?'Customer pays the Mono Line Out difference':'Next DAC level, no extra cost'}</small></div>
-      <div class="amt">${money(s.save[cur])}<small>Customer saves</small></div>
-      <div class="px">${s.mono?`Pays <b>${money(s.dsm[cur]+s.upg[cur])}</b> <span class="brk">(${money(s.dsm[cur])} + ${money(s.upg[cur])} Mono Line Out difference)</span>`:`Pays <b>${money(s.pay[cur])}</b>`} · normally <s>${money(s.get[cur])}</s></div>
-      ${DEALER?`<div class="px dl">Dealer: cost price ${cur==='NZD'?'ex':'inc'} <b>${money2(s.dpay[cur])}</b> · normally <s>${money2(s.dget[cur])}</s></div>`:''}</div>`).join('')}</div>`}).join('');
-  $('svFine').innerHTML=`Prices are ${MK[cur].retail}, from the current Linn Selekt DSM retail list used in the Advance Audio Selekt DSM configurator. Savings are the difference between the full Selekt DSM bundle the customer pays for and the one they receive, so they can differ from individual module price differences. ${DEALER?`Dealer prices are from the October 2026 Linn dealer list (${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}).`:''} *Dual mono: the customer orders a stereo Organik Selekt DSM with a stereo Line Out cartridge and receives dual mono Organik (2 × Organik Mono DAC). The Mono Line Out cartridges are not part of the upgrade, so the customer pays the difference between 2 × Mono Line Out cartridges (${money(MONO[cur])} RRP) and the stereo Line Out cartridge (${money(LO[cur])} RRP): ${money(MONO[cur]-LO[cur])}.`;
+      <div class="amt">${money(s.mono?s.dsm[cur]+s.upg[cur]:s.pay[cur])}<small>Promotion price</small></div>
+      <div class="px">${s.mono?`<span class="brk">${money(s.dsm[cur])} + ${money(s.upg[cur])} Mono Line Out difference</span> · `:''}Normally ${money(s.get[cur])}</div>
+      ${DEALER?`<div class="px dl">Dealer: cost price ${cur==='NZD'?'ex':'inc'} <b>${money2(s.dpay[cur])}</b> · normally ${money2(s.dget[cur])}</div>`:''}</div>`).join('')}</div>`}).join('');
+  $('svFine').innerHTML=`Prices are ${MK[cur].retail}, from the current Linn Selekt DSM retail list used in the Advance Audio Selekt DSM configurator. The promotion price is the full Selekt DSM bundle the customer pays for; the normal price is the bundle they receive with the next DAC level. ${DEALER?`Dealer prices are from the October 2026 Linn dealer list (${cur==='NZD'?'NZD, excluding GST':'AUD, including GST'}).`:''} *Dual mono: the customer orders a stereo Organik Selekt DSM with a stereo Line Out cartridge and receives dual mono Organik (2 × Organik Mono DAC). The Mono Line Out cartridges are not part of the upgrade, so the customer pays the difference between 2 × Mono Line Out cartridges (${money(MONO[cur])} RRP) and the stereo Line Out cartridge (${money(LO[cur])} RRP): ${money(MONO[cur]-LO[cur])}.`;
 }
 
 /* ---------- inline price tokens ---------- */

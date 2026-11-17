@@ -596,8 +596,8 @@ function renderSummary(){
   const cfg=resolved();
   const p=promoFor(cfg);
   if(cfg&&p){
-    $('amount').innerHTML=`<span class="was">Was <s>${money(priceOf(cfg))}</s></span><span class="is">${money(p.pay[state.currency])}</span>`;
-    $('priceNote').innerHTML=`<span class="save">${DEALER?'Customer saves':'You save'} ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Summer Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}${DEALER?`<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`:''}${multiNote(p)}`;
+    $('amount').innerHTML=`<span class="was">Normally ${money(priceOf(cfg))}</span><span class="is">${money(p.pay[state.currency])}</span>`;
+    $('priceNote').innerHTML=`<span class="save">Promotion price</span><span class="pn">${esc(retailNote())} · Summer Incentive</span>${DEALER?`<span class="dlr-px">Dealer: normally ${dmoney(dealerOf(priceOf(cfg)))} · promotion <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}${DEALER?`<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`:''}`;
   }else if(cfg){
     $('amount').textContent=money(priceOf(cfg));
     $('priceNote').innerHTML=`<span class="pn">${esc(retailNote())}</span>${DEALER?`<span class="dlr-px">Dealer: <b>${dmoney(dealerOf(priceOf(cfg)))}</b> ${dTag()}</span>`:''}<span class="ord nb">${esc(promoReason(cfg))}</span>`;
@@ -696,7 +696,7 @@ function buildPrintDoc(){
   <div class="pd-hero">
     <div><h2>${esc(state.chassis)} — ${esc(state.colour)}</h2>
       <div class="sub">${esc(specs()[1][1])} · ${fitted().length} of 3 cartridge slots fitted${state.hdmi?' · HDMI board':''}${state.surround?' · Surround board':''}</div></div>
-    <div class="pd-price">${pp?`<div class="w">Was <s>${money(priceOf(cfg))}</s></div><div class="v">${money(pp.pay[state.currency])}</div><div class="b">Summer Incentive · saves ${money(pp.save[state.currency])}</div>`:`<div class="v">${money(priceOf(cfg))}</div><div class="b">${esc(retailNote().replace(', incl. GST',' · incl. GST'))}</div>`}</div>
+    <div class="pd-price">${pp?`<div class="w">Normally ${money(priceOf(cfg))}</div><div class="v">${money(pp.pay[state.currency])}</div><div class="b">Summer Incentive promotion price</div>`:`<div class="v">${money(priceOf(cfg))}</div><div class="b">${esc(retailNote().replace(', incl. GST',' · incl. GST'))}</div>`}</div>
   </div>
   <section><h3>Configuration</h3>
     <table><thead><tr><th>Component</th><th>SKU</th></tr></thead><tbody>
@@ -802,8 +802,8 @@ function renderCurrency(){
   document.documentElement.setAttribute('data-currency',state.currency);
   const h=$('heroNote');
   if(h)h.textContent=state.currency==='NZD'
-    ? 'Every valid Selekt DSM build with New Zealand retail pricing, shown as was and is under the Linn Summer Incentive (16 November 2026 to 5 January 2027).'
-    : 'Every valid Selekt DSM build with Australian retail pricing, shown as was and is under the Linn Summer Incentive (16 November 2026 to 5 January 2027).';
+    ? 'Every valid Selekt DSM build with New Zealand retail pricing, shown at normal and promotion prices under the Linn Summer Incentive (16 November 2026 to 5 January 2027).'
+    : 'Every valid Selekt DSM build with Australian retail pricing, shown at normal and promotion prices under the Linn Summer Incentive (16 November 2026 to 5 January 2027).';
   const e=$('heroEyebrow');
   if(e)e.textContent=state.currency==='NZD'
     ? 'Linn Selekt DSM \u00b7 New Zealand '+(DEALER?'dealer configurator':'pricing')

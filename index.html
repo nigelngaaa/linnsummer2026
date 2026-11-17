@@ -110,7 +110,7 @@ body.on-paper .bar{color:var(--ink)}
 .sv-row .rt{font-size:.86rem;color:#d6d8db;line-height:1.45}
 .sv-row .rt small{display:block;color:var(--muted);font-size:.74rem;margin-top:.2rem}
 .sv-row .amt{text-align:right;font-family:var(--serif);font-size:1.9rem;color:var(--copper-soft);line-height:1}
-.sv-row .amt small{display:block;font-family:var(--sans);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.35rem}
+.sv-row .amt small{white-space:nowrap;display:block;font-family:var(--sans);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.35rem}
 .sv-row .px{grid-column:1/-1;font-size:.74rem;color:var(--muted);display:flex;gap:.5rem;flex-wrap:wrap}
 .sv-row .px s{opacity:.8}
 .sv-row .px b{color:var(--text);font-weight:600}
@@ -318,7 +318,7 @@ body.modal-open{overflow:hidden}
   </div>
   <nav>
     <a href="#offer" data-sec="offer">Offer</a>
-    <a href="#savings" data-sec="savings">Savings</a>
+    <a href="#savings" data-sec="savings">Pricing</a>
     <a class="dl-only" href="#ordering" data-sec="ordering">Ordering</a>
     <a class="dl-only" href="#targets" data-sec="targets">Targets</a>
     <a class="dl-only" href="#floorstock" data-sec="floorstock">Floor stock</a>
@@ -369,7 +369,7 @@ body.modal-open{overflow:hidden}
 
 <section class="slide sec" id="savings">
   <div class="sv-top">
-    <div><div class="eyebrow r">Customer savings</div><h2 class="r d1" style="margin-top:1rem">What it’s <em>worth.</em></h2>
+    <div><div class="eyebrow r">Promotion pricing</div><h2 class="r d1" style="margin-top:1rem">What it’s <em>worth.</em></h2>
       <p class="lead r d2" style="margin-top:1rem">Every route to the upgrade, priced on the full Selekt DSM retail bundle the customer pays for and the one they receive.</p></div>
     <div class="tabs r d2" role="tablist" aria-label="Choose hub">
       <button type="button" class="on" data-hub="Selekt Classic" role="tab" aria-selected="true">Selekt Classic</button>
@@ -398,7 +398,6 @@ body.modal-open{overflow:hidden}
       <dl>
         <dt>Pays for</dt><dd>Selekt DSM Edition + Line Out + Katalyst DAC · <span class="cur" data-p="Selekt Edition Hub|Line Out|1|pay"></span></dd>
         <dt>Receives</dt><dd>Selekt DSM Edition + Line Out + Organik DAC · <span class="cur" data-p="Selekt Edition Hub|Line Out|1|get"></span></dd>
-        <dt>Saving</dt><dd><b class="cur" data-p="Selekt Edition Hub|Line Out|1|save"></b> to the customer</dd>
         <dt class="dl-only">Dealer</dt><dd class="dl-only">Cost price <span data-cp>inc</span> <b class="cur" data-p="Selekt Edition Hub|Line Out|1|dpay"></b> · normally <span class="cur" data-p="Selekt Edition Hub|Line Out|1|dget"></span></dd>
         <dt>Order note</dt><dd>“Summer Incentive: Selekt DSM Edition + Line Out + Katalyst, upgraded to Organik through the promotion.”</dd>
       </dl>
@@ -412,7 +411,7 @@ body.modal-open{overflow:hidden}
     <div class="txt">
       <div class="eyebrow r">Who to call first</div>
       <h2 class="r d1" style="margin-top:1rem">Start with the <em>warmest</em> opportunities.</h2>
-      <p class="lead r d2" style="margin-top:1.2rem">There’s been no notice period on this one. It arrives straight after 343, and it’s a shorter campaign, so build a prospect list, book demos and start conversations now.</p>
+      <p class="lead r d2" style="margin-top:1.2rem">It’s a shorter campaign, so build a prospect list, book demos and start conversations now.</p>
       <ul class="warm r d2">
         <li><span class="n">01</span><div><b>Selekt DSM considerers</b>Customers already looking at Selekt DSM who haven’t committed yet.</div></li>
         <li><span class="n">02</span><div><b>Great speakers, weaker source</b>Customers with good speakers and amplifiers but a less impressive source. A good demo will encourage them to make the step up.</div></li>
@@ -444,7 +443,7 @@ body.modal-open{overflow:hidden}
 
 <section class="slide cfg paper" id="configurator">
   <div class="head2">
-    <div><div class="eyebrow r">Selekt DSM configurator</div><h2 class="r d1">Price any build, <em>was and is.</em></h2></div>
+    <div><div class="eyebrow r">Selekt DSM configurator</div><h2 class="r d1">Price any build at its <em>promotion price.</em></h2></div>
     <p class="lead r d2">Build the system the customer will receive. You’ll see the current retail price, the Summer Incentive price and the order line to send to Orders. Then export a branded spec sheet for your customer.</p>
   </div>
   <iframe class="cfg-frame" id="cfgFrame" title="Linn Selekt DSM configurator with Summer Incentive pricing" loading="lazy"></iframe>
