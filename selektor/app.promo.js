@@ -582,6 +582,11 @@ function fitLogo(src,name){
   img.onerror=()=>setLogo(src,name);
   img.src=src;
 }
+function multiNote(p){
+  if(!p||p.mono) return '';
+  const n=state.slots.filter(x=>x.card&&x.dac).length;
+  return n>=2?'<span class="ord nb mc">Saving is based on Linn\u2019s module pricing for multi-cartridge systems, so it can differ from single-cartridge builds.</span>':'';
+}
 function renderSummary(){
   const line=i=>state.slots[i].card?`${state.slots[i].card} · ${state.slots[i].dac||'DAC pending'}`:(i===2&&monoPair()?'Unavailable — mono pair':'Not fitted');
   const rows=[['Chassis',state.chassis||'—'],['Slot 1',line(0)],['Slot 2',line(1)],['Slot 3',line(2)],
@@ -592,7 +597,7 @@ function renderSummary(){
   const p=promoFor(cfg);
   if(cfg&&p){
     $('amount').innerHTML=`<span class="was">Was <s>${money(priceOf(cfg))}</s></span><span class="is">${money(p.pay[state.currency])}</span>`;
-    $('priceNote').innerHTML=`<span class="save">${DEALER?'Customer saves':'You save'} ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Summer Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}${DEALER?`<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`:''}`;
+    $('priceNote').innerHTML=`<span class="save">${DEALER?'Customer saves':'You save'} ${money(p.save[state.currency])}</span><span class="pn">${esc(retailNote())} · Summer Incentive price</span>${DEALER?`<span class="dlr-px">Dealer: was <s>${dmoney(dealerOf(priceOf(cfg)))}</s> · is <b>${p.mono?dmoney(dealerOf(p.base.price[state.currency])+dealerOf(p.upg[state.currency])):dmoney(dealerOf(p.pay[state.currency]))}</b> ${dTag()}</span>`:''}${DEALER?`<span class="ord">${esc(promoOrderLine(p,cfg))}</span>`:''}${multiNote(p)}`;
   }else if(cfg){
     $('amount').textContent=money(priceOf(cfg));
     $('priceNote').innerHTML=`<span class="pn">${esc(retailNote())}</span>${DEALER?`<span class="dlr-px">Dealer: <b>${dmoney(dealerOf(priceOf(cfg)))}</b> ${dTag()}</span>`:''}<span class="ord nb">${esc(promoReason(cfg))}</span>`;
