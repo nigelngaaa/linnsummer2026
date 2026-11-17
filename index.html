@@ -250,6 +250,7 @@ html[data-cur=NZD] [data-show-aud]{display:none}
 
 /* dealer unlock */
 html:not(.dealer-on) .dl-only{display:none!important}
+html.dealer-on .pub-only{display:none!important}
 .dlbtn{display:inline-flex;align-items:center;gap:.5em;background:none;border:1px solid currentColor;color:inherit;border-radius:999px;padding:.42rem .85rem;font:700 .64rem/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap;background:rgba(18,19,21,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 body.on-paper .dlbtn{background:rgba(243,239,232,.6)}
 .dlbtn:hover{opacity:1}
@@ -318,11 +319,11 @@ body.modal-open{overflow:hidden}
   <nav>
     <a href="#offer" data-sec="offer">Offer</a>
     <a href="#savings" data-sec="savings">Savings</a>
-    <a href="#ordering" data-sec="ordering">Ordering</a>
-    <a href="#targets" data-sec="targets">Targets</a>
-    <a href="#floorstock" data-sec="floorstock">Floor stock</a>
+    <a class="dl-only" href="#ordering" data-sec="ordering">Ordering</a>
+    <a class="dl-only" href="#targets" data-sec="targets">Targets</a>
+    <a class="dl-only" href="#floorstock" data-sec="floorstock">Floor stock</a>
     <a href="#configurator" data-sec="configurator">Configurator</a>
-    <a href="#plan" data-sec="plan">Your plan</a>
+    <a class="dl-only" href="#plan" data-sec="plan">Your plan</a>
     <a href="#terms" data-sec="terms">Terms</a>
   </nav>
   <div class="right">
@@ -346,7 +347,7 @@ body.modal-open{overflow:hidden}
     <div class="meta r d3">
       <div><b>16 Nov – 5 Jan</b>New-customer orders</div>
       <div><b>Up to <span class="cur" data-max></span></b>Customer saving</div>
-      <div><b>+ dealer credit</b>For conversions and marketing</div>
+      <div class="dl-only"><b>+ dealer credit</b>For conversions and marketing</div>
     </div>
     <a class="scroll-cue r d4" href="#offer"><span>&#8595;</span>See the offer</a>
   </div>
@@ -355,14 +356,14 @@ body.modal-open{overflow:hidden}
 <section class="slide paper sec" id="offer">
   <div class="head2">
     <div><div class="eyebrow r">The offer</div><h2 class="r d1">Choose your DAC.<br><em>We’ll raise you one.</em></h2></div>
-    <p class="lead r d2">Following on from the OTR, Linn is opening the festive season with a New to Linn promotion. It’s a strong way to bring new customers into Selekt DSM and set up the upgrade business that follows.</p>
+    <p class="lead r d2 dl-only">Following on from the OTR, Linn is opening the festive season with a New to Linn promotion. It’s a strong way to bring new customers into Selekt DSM and set up the upgrade business that follows.</p>
   </div>
   <div class="ladder" id="ladder"></div>
   <div class="cond r d3">
     <div><b>When</b>New-customer Selekt DSM orders placed 16 November 2026 to 5 January 2027.</div>
     <div><b>Eligible</b>Selekt Classic or Edition Hub ordered with an output cartridge and a DAC.</div>
     <div><b>One per DSM</b>One DAC upgrade per Selekt DSM, even if the system has multiple DACs.</div>
-    <div><b>Customer orders</b>For customer orders only. Demo purchases aren’t eligible for the upgrade.</div>
+    <div class="dl-only"><b>Customer orders</b>For customer orders only. Demo purchases aren’t eligible for the upgrade.</div>
   </div>
 </section>
 
@@ -379,7 +380,7 @@ body.modal-open{overflow:hidden}
   <p class="fine r d3" id="svFine"></p>
 </section>
 
-<section class="slide paper sec" id="ordering">
+<section class="slide paper sec dl-only" id="ordering">
   <div class="ord-grid">
     <div>
       <div class="eyebrow r">Ordering</div>
@@ -406,7 +407,7 @@ body.modal-open{overflow:hidden}
   </div>
 </section>
 
-<section class="slide" id="targets">
+<section class="slide dl-only" id="targets">
   <div class="split">
     <div class="txt">
       <div class="eyebrow r">Who to call first</div>
@@ -423,7 +424,7 @@ body.modal-open{overflow:hidden}
   </div>
 </section>
 
-<section class="slide paper sec" id="floorstock">
+<section class="slide paper sec dl-only" id="floorstock">
   <div class="fs-grid">
     <div class="fs-pic r"><img src="img/floor.jpg" alt="Linn Selekt DSM in silver on a timber sideboard in a living room" loading="lazy"></div>
     <div>
@@ -450,7 +451,7 @@ body.modal-open{overflow:hidden}
   <div class="cfg-actions"><a class="link-btn" id="cfgOpen" href="selektor/" target="_blank" rel="noopener">Open full screen &#8599;</a><span class="fine" style="margin:0">Retail prices <span data-show-aud>in AUD include GST</span><span data-show-nzd>in NZD include GST</span>.</span></div>
 </section>
 
-<section class="slide plan" id="plan">
+<section class="slide plan dl-only" id="plan">
   <div class="head2">
     <div><div class="eyebrow r">Your opportunity · Your marketing</div><h2 class="r d1">Your plan. <em>Our credit.</em></h2></div>
     <p class="lead r d2">Tell us what you can do with this, and we’ll back you with credit towards new Linn floor stock orders. Fill in both sides, add your details and export your plan as a PDF.</p>
@@ -487,7 +488,7 @@ body.modal-open{overflow:hidden}
   <p class="fine r d3"><span data-show-aud>Credit values are in AUD and include GST.</span><span data-show-nzd>Credit values are in NZD and exclude GST.</span> Credit is earned on what you actually deliver: converted orders placed through the Summer Incentive, and marketing activity confirmed with your rep. Credit will be calculated after the promotion finishes. You will be notified how much credit you have earnt and your rep will work out an order with you.</p>
 </section>
 
-<section class="slide paper sec" id="confirm">
+<section class="slide paper sec dl-only" id="confirm">
   <div class="cf-grid">
     <div>
       <div class="eyebrow r">Export your plan</div>
@@ -523,9 +524,10 @@ body.modal-open{overflow:hidden}
 <section class="slide paper sec terms" id="terms" style="background:var(--paper-2)">
   <div class="head2">
     <div><div class="eyebrow r">Promotion terms</div><h2 class="r d1">The <em>fine print.</em></h2></div>
-    <p class="lead r d2">Plain and simple. If anything here isn’t clear, your rep will walk you through it.</p>
+    <p class="lead r d2 dl-only">Plain and simple. If anything here isn’t clear, your rep will walk you through it.</p>
+    <p class="lead r d2 pub-only">Terms and Conditions apply, please speak to your Linn specialist for more information.</p>
   </div>
-  <ol class="r d2" id="termsList"></ol>
+  <ol class="r d2 dl-only" id="termsList"></ol>
 </section>
 
 <section class="slide end" id="contact">

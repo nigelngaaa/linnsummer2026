@@ -17,7 +17,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const DACN={'Standard DAC':'Standard DAC','Katalyst DAC':'Katalyst','Organik Stereo DAC':'Organik','Dual Mono Organik':'Dual Mono Organik'};
 const CARD={'Line Out':'Stereo line out cartridge','Power Out':'Stereo power amplifier cartridge','Hybrid Power Out':'Hybrid cartridge: one amplified channel plus a line feed'};
 const route=(hub,card)=>R.find(r=>r.chassis===hub&&r.card===card);
-const maxSave=(i,c)=>Math.max(...R.filter(r=>r.steps[i]).map(r=>r.steps[i].save[c]));
+const maxSave=(i,c)=>Math.max(...R.filter(r=>r.steps[i]&&r.card!=='Hybrid Power Out').map(r=>r.steps[i].save[c]));
 
 /* ---------- currency: URL > visitor toggle > Cloudflare country > device timezone ---------- */
 const QS=new URLSearchParams(location.search);
@@ -140,7 +140,7 @@ const dlBtn=$('dealerBtn'), dlModal=$('dlModal'), dlPw=$('dlPw'), dlMsg=$('dlMsg
 function dlLabel(){const on=!!DEALER;document.documentElement.classList.toggle('dealer-on',on);
   dlBtn.querySelector('span').textContent=on?'Hide dealer pricing':(DSAVED?'Show dealer pricing':'Dealer pricing');
   dlBtn.setAttribute('aria-pressed',on?'true':'false');}
-function dlApply(on){DEALER=on?DSAVED.dealer:null;R=on?DSAVED.routes:window.ROUTES.routes;dlLabel();renderAll();
+function dlApply(on){DEALER=on?DSAVED.dealer:null;R=on?DSAVED.routes:window.ROUTES.routes;dlLabel();renderAll();onScroll();
   if(frame.dataset.loaded){frame.dataset.loaded='';loadFrame()}}
 function dlOpen(){dlModal.hidden=false;document.body.classList.add('modal-open');dlMsg.textContent='';dlPw.value='';setTimeout(()=>dlPw.focus(),30)}
 function dlClose(){dlModal.hidden=true;document.body.classList.remove('modal-open');dlBtn.focus()}
@@ -295,7 +295,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.targe
 slides.forEach(s=>io.observe(s));
 function onScroll(){
   const mid=deck.scrollTop+window.innerHeight*.35;let cur=0;
-  slides.forEach((s,i)=>{if(s.offsetTop<=mid)cur=i});
+  slides.forEach((s,i)=>{if(s.offsetParent&&s.offsetTop<=mid)cur=i});
   const s=slides[cur];
   document.body.classList.toggle('on-paper',s.classList.contains('paper'));
   bar.classList.toggle('solid',deck.scrollTop>40);
