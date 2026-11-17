@@ -251,6 +251,7 @@ html[data-cur=NZD] [data-show-aud]{display:none}
 /* dealer unlock */
 html:not(.dealer-on) .dl-only{display:none!important}
 html.dealer-on .pub-only{display:none!important}
+html:not(.dealer-on) #contact .lg .aa,html:not(.dealer-on) #contact .lg .sep,html:not(.dealer-on) #contact #webTxt{display:none!important}
 .dlbtn{display:inline-flex;align-items:center;gap:.5em;background:none;border:1px solid currentColor;color:inherit;border-radius:999px;padding:.42rem .85rem;font:700 .64rem/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap;background:rgba(18,19,21,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 body.on-paper .dlbtn{background:rgba(243,239,232,.6)}
 .dlbtn:hover{opacity:1}
@@ -537,7 +538,6 @@ body.modal-open{overflow:hidden}
     <h2 class="r d1 dl-only">Book the <em>demos.</em></h2>
     <h2 class="r d1 pub-only">Book a demo <em>today.</em></h2>
     <a class="mail r d2 dl-only" data-mail href="mailto:orders@advanceaudio.com.au">orders@advanceaudio.com.au</a>
-    <a class="mail r d2 pub-only" href="https://www.linn.co.uk/try-linn" target="_blank" rel="noopener">Find your nearest Linn dealer</a>
     <div class="lg r d3">
       <img class="aa" data-show-aud src="img/aa-logo-rev.svg" alt="Advance Audio"><img class="aa" data-show-nzd src="img/advanceone-reversed.png" alt="Advance One">
       <span class="sep"></span><img class="ln" src="img/linn-white.png" alt="Linn">
